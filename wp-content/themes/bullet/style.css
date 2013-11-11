@@ -1,0 +1,23 @@
+/*
+Theme Name: Bullet
+Theme URI: http://peytz.dk/
+Description: A custom theme by Peytz & Co
+Version: Based on v2.6
+Author: Peytz & Co
+Author URI: http://peytz.dk/
+License: GNU General Public License v2.0
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+Based on Bullet WordPress Theme, Copyright 2013 Peytz & Co
+Bullet is distributed under the terms of the GNU GPL
+*/
+
+/*
+THE CSS DOESN'T BELONG HERE
+
+Compile these files only from /less to /css...
+
+- styles.less (Base stylesheet)
+- media-queries.less (media queries for increasingly larger sizes)
+- ie.less (loads all the css from the forst 4 media queries, so old IE gets all the large screen css)
+- admin_styles.less (for admin panel custom styles)

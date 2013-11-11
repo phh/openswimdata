@@ -1,0 +1,254 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Bullet\n"
+"POT-Creation-Date: 2013-05-30 11:31+0100\n"
+"PO-Revision-Date: 2013-05-30 11:37+0100\n"
+"Last-Translator: James Bonham <jb@peytz.dk>\n"
+"Language-Team: Peytz & Co\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: bullet__;bullet_e;bullet_x:1,2c\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../bullet/image.php:34 ../bullet/includes/functions-hooks.php:65
+#: ../bullet/includes/functions-helpers.php:87
+#: ../bullet/includes/functions-helpers.php:89
+msgid "Read more &raquo;"
+msgstr "Læs mere &raquo;"
+
+#: ../bullet/image.php:52
+msgid "Sorry, no attachments matched your criteria."
+msgstr ""
+
+#: ../bullet/header.php:35
+msgid "Home"
+msgstr "Forside"
+
+#: ../bullet/functions.php:65
+msgid "Main Menu"
+msgstr "Hovedmenu"
+
+#: ../bullet/404.php:20
+msgid "404 - Not Found"
+msgstr "404 - Ikke fundet"
+
+#: ../bullet/404.php:24
+msgid "The content you were looking for may have been moved or unpublished"
+msgstr ""
+"Det kan godt være at du har tastet forkert eller fulgt et gammelt link til "
+"en nedlagt side."
+
+#: ../bullet/archive.php:24
+msgid "Category:"
+msgstr "Kategori:"
+
+#: ../bullet/archive.php:29
+msgid "Taxonomy:"
+msgstr "Taksonomi:"
+
+#: ../bullet/archive.php:34
+msgid "Tag:"
+msgstr "Tag:"
+
+#: ../bullet/archive.php:39 ../bullet/archive.php:44 ../bullet/archive.php:49
+#: ../bullet/archive.php:54
+msgid "Archive:"
+msgstr "Arkiv:"
+
+#: ../bullet/single.php:27 ../bullet/loop.php:34
+msgid "by"
+msgstr "af"
+
+#: ../bullet/single.php:42
+msgid "Tags:"
+msgstr "Tags:"
+
+#: ../bullet/single.php:56 ../bullet/page.php:49
+msgid "Not Found"
+msgstr "Ikke fundet"
+
+#: ../bullet/single.php:59 ../bullet/page.php:52
+msgid "Sorry, but the requested resource was not found on this site."
+msgstr "Den ønskede side kunne ikke findes."
+
+#: ../bullet/author.php:19
+msgid "Posts By:"
+msgstr "Udgivet af:"
+
+#: ../bullet/search.php:19
+msgid "Search Results for:"
+msgstr "Søgeresultater:"
+
+#: ../bullet/searchform.php:12
+msgid "Search for"
+msgstr "Søg efter"
+
+#: ../bullet/searchform.php:13
+msgid "Search..."
+msgstr "Søg..."
+
+#: ../bullet/searchform.php:14
+msgid "Search"
+msgstr "Søg"
+
+#: ../bullet/comments.php:14
+msgid "Please do not load this page directly. Thanks!"
+msgstr ""
+
+#: ../bullet/comments.php:18
+msgid "This post is password protected. Enter the password to view comments."
+msgstr "Denne side er beskyttet. Skriv kodeordet for at vise kommentarer."
+
+#: ../bullet/comments.php:24
+msgid "<span>No</span> Responses"
+msgstr "<span>Intet</span> svar"
+
+#: ../bullet/comments.php:24
+msgid "<span>One</span> Response"
+msgstr "<span>Et</span> svar"
+
+#: ../bullet/comments.php:24
+msgid "<span>%</span> Responses"
+msgstr "<span>%</span> svar"
+
+#: ../bullet/comments.php:40
+msgid "Comments are closed."
+msgstr "Kommentarer er lukket."
+
+#: ../bullet/comments.php:49
+msgid "Leave a Reply"
+msgstr "Skriv et svar"
+
+#: ../bullet/comments.php:49
+#, php-format
+msgid "Leave a Reply to %s"
+msgstr "Skriv et svar til %s"
+
+#: ../bullet/comments.php:57
+msgid "You must be logged in to post a comment."
+msgstr "Du skal logge på, for at skrive en kommentar"
+
+#: ../bullet/comments.php:67
+msgid "Log out of this account"
+msgstr "Log ud af din konto"
+
+#: ../bullet/comments.php:67
+msgid "Log out"
+msgstr "Log ud"
+
+#: ../bullet/comments.php:75
+msgid "Name"
+msgstr "Navn"
+
+#: ../bullet/comments.php:76 ../bullet/comments.php:83
+msgid " (required)"
+msgstr "(påkrævet)"
+
+#: ../bullet/comments.php:78
+msgid "Your Name"
+msgstr "Dit navn"
+
+#: ../bullet/comments.php:82
+msgid "Mail"
+msgstr "Mail"
+
+#: ../bullet/comments.php:85
+msgid "Your Email"
+msgstr "Din email"
+
+#: ../bullet/comments.php:86
+msgid "- Will not be published"
+msgstr "- vises aldrig offentligt"
+
+#: ../bullet/comments.php:91
+msgid "Website"
+msgstr "Hjemmeside"
+
+#: ../bullet/comments.php:93
+msgid "Your Website"
+msgstr "Din hjemmeside"
+
+#: ../bullet/comments.php:101 ../bullet/comments.php:103
+msgid "Your Comment Here..."
+msgstr "Din kommentar"
+
+#: ../bullet/comments.php:107
+msgid "Submit Comment"
+msgstr "Send kommentar"
+
+#: ../bullet/loop.php:61
+msgid "&laquo; Older Entries"
+msgstr "&laquo; Ældre indlæg"
+
+#: ../bullet/loop.php:62
+msgid "Newer Entries &raquo;"
+msgstr "Nyere indlæg &raquo;"
+
+#: ../bullet/loop.php:71
+msgid "Nothing Found"
+msgstr "Intet fundet"
+
+#: ../bullet/loop.php:74
+msgid "Sorry. There are no posts to show."
+msgstr "Din søgning matchede ikke nogen dokumenter."
+
+#: ../bullet/includes/functions-hooks.php:65
+msgid "Read"
+msgstr "Læs"
+
+#: ../bullet/includes/theme-options.php:47
+msgid "Theme options"
+msgstr "Temafunktioner"
+
+#: ../bullet/includes/theme-options.php:49
+msgid "Theme options updated."
+msgstr "Temafunktioner opdateret."
+
+#: ../bullet/includes/theme-options.php:58
+msgid "Bullet option"
+msgstr ""
+
+#: ../bullet/includes/functions-helpers.php:256
+msgid "Your comment is awaiting moderation."
+msgstr "Din kommentar afventer gennemlæsning."
+
+#: ../bullet/includes/classes/class.generate-metabox.php:237
+msgid "Browse..."
+msgstr "Vælg…"
+
+#: ../bullet/includes/classes/class.generate-metabox.php:246
+msgid "Remove file"
+msgstr "Fjern fil"
+
+#~ msgid "Please activate some Widgets."
+#~ msgstr "Venligst aktivér nogle widgets "
+
+#~ msgid "Posted"
+#~ msgstr "Udgivet den"
+
+#~ msgid "filed under"
+#~ msgstr "i"
+
+#~ msgid "In"
+#~ msgstr "I"
+
+#~ msgid "in"
+#~ msgstr "i"
+
+#~ msgid "Posts Categorised:"
+#~ msgstr "Kategori:"
+
+#~ msgid "Posts Tagged:"
+#~ msgstr "Tag:"
+
+#~ msgid "Daily Archives:"
+#~ msgstr "Dag:"
+
+#~ msgid "Monthly Archives:"
+#~ msgstr "Måned:"
+
+#~ msgid "Yearly Archives:"
+#~ msgstr "År:"

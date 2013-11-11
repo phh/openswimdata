@@ -1,0 +1,137 @@
+-------------------------------------------------
+BULLET THEME DOCUMENTATION
+-------------------------------------------------
+
+RENAMING THE THEME
+
+It's important you find and replace the theme name with case sensitive set to on, so that classes start with a capital letter.
+
+
+USING LESS
+
+Compile these files from /less to /css using a LESS app
+
+- styles.less (Base stylesheet)
+- media-queries.less (media queries for increasingly larger sizes)
+- ie.less (loads all the css from the forst 4 media queries, so old IE gets all the large screen css)
+- admin_styles.less (only if you want to add styles to the backend)
+
+
+VERSION HISTORY
+
+--- 2.6 --- Improves markup standard, and adds customisable 404
+Improves schema.org and html5 markup
+Removes some unnecessary commented out stuff
+Uses WP 3.6 html5 support to remove certian freatures
+Improves code standard
+Adds the option of defining a regular page as a 404 page using a Page Template
+
+--- 2.5 --- Various fixes and tweaks, WooCommerce support
+If no post types are defined for bullet_related_posts it will just give any post types
+Changes function bullet_image_field to pco_image_field
+Removes pingback from header
+Adds woocommerce support
+Adds html5shiv in conditional [if lt IE 9] instead of php to avoid caching issues
+Updates image rebuilder to avoid floating issues in image classes
+
+--- 2.4 --- Adds responsive nav and tidies up code comments
+Adds responsive main nav and simplified main menu html
+Adds more consistent, better docblocks at the start of each standard template file
+Changes search field to input type search
+Removes no-js class on body tag, as Modernizr is not enabled by default
+
+--- 2.3 --- Adds Krumo and tidies up code
+Adds Krumo dev tool for a better alternative to print_r and var_dump
+Fixes script call dependancy in header
+Fixes youtube embed so it is bit prettier and removes related videos by default
+Corrects docblock on class.rebuild-images
+Tidies up trailing spaces and code indentation
+Removes tags in style.css theme description
+
+--- 2.2 --- Updates jQuery, shortcode button class/js
+Adds button icons for generate-shortcode-buttons class and fixes js/class bugs
+Updates jQuery to 1.10.2
+More HTML validation and document outline improvements
+
+--- 2.1 --- Tidies up 2.0 release and adds more html5 goodness
+Adds new html5.1 <main> tag instead on main div
+Moves responsive media/embed functions to class rebuild-images
+Adds functions-plugins
+Registers jquery without js suffix for plugin compatibility
+Fixes language folder name to make translations work
+Removes unwanted alert test code
+
+--- 2.0.1 --- Untagged in git
+Renames language folder to languages, so translations load properly
+Changes theme description to 'A custom theme by Peytz & Co'
+
+--- 2 --- New classes, image handing, helpers and lots more
+Adds shortcode button class for easy button generation in TinyMCE
+Adds image rebuild class for better responsive image handling and HTML5 captions with figure/figcaption
+Adds post gallery function for cleaner HTML5 gallery output
+Adds new logo handling using an img tag
+Adds schema.org organisation itemscope on header logo
+Removes image_downsize function
+Better default archive heading html and translations
+Adds Spotify to the accepted responsive oEmbed list
+Removes duplicate comment pagination div
+Changes incorrect PHPDocumenter tags from @see to @link
+More tests for WP 3.6
+Fixes for WCAG AA
+Language translation improvements
+Bugfixes
+
+--- 1.4.2 --- Adds screenshot, html language attribute and 3.6 compat bugfix
+Fixes a JS error in admin_scripts.js
+Adds language attributes to html tag
+Adds Peytz & Co branded screenshot.png file
+Tested with WP 3.6
+
+--- 1.4.1 --- custom metabox callback and bugfixes.
+Prefixes all functions
+Getting files using build-in wordpress functions
+Metaboxes can now use a custom callback to make a custom metabox form
+
+--- 1.4 --- Improves meta box class with file field type, as well as related posts function
+Adds decidated admin css and js files
+Adds File to the meta box field types, so you can attach a file to a post using meta data
+Improves Related Posts function to include a post type param
+
+--- 1.3 --- scripts.js improvements and an admin helper filter
+Adds toPx and toEm functions to scripts.js so you can calculate stuff in js with Em widths
+Experimental solution for placeholdfer support without loading modernizr (needs thourough test)
+Adds small function in functions-admin to allow easy removal of items from the backend menu
+
+--- 1.2.1 --- untagged in git
+Makes empty search return all results
+Fixes a bug in function naming
+
+--- 1.2 --- Mainly a js update & tidy
+Removes IE Mobile/IE7 support
+Cleans up HEAD to match html5 boilerplate
+Adds html5Shiv
+Removes modernizr and selectivizr
+Moves jQuery and scripts file to the footer in the enqueues
+Upgrades jQuery and enqueued from theme instead of using WordPress' built in enqueue
+Adds outer-footer div to allow grid placement for inner-footer that works just like inner-header (see media-3.less)
+Disables a few more dashboard widgets by default
+Action to remove Wordpress welcome panel by default
+Comments out Post Format support (we usually don't use them)
+
+--- 1.1.1 -- First tagged release
+Danish translations
+Fixes bulletname to basename!
+Fixes bug in menu (showed tags for menu item descriptions even if empty)
+
+--- 1.1 --- Untagged in git
+More minimal stylesheets with better commenting
+5 media query stylesheets with new breakpoints
+Better documentation
+Renames back to Bullet
+
+--- 1.0 --- Untagged in git
+Derived from Bullet Theme by James Bonham
+Removes unnecesary features
+Better file structure for includes
+Translatable strings everywhere
+Renames to Base

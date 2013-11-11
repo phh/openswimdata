@@ -1,0 +1,95 @@
+/* Stylesheet: IE <= 8 ********************/
+.post-content .alignleft,
+.post-content img.alignleft {
+  margin: 0.5em 1.5em 1em 0;
+  display: inline;
+  float: left;
+}
+.post-content .alignright,
+.post-content img.alignright {
+  margin: 0.5em 0 1em 1.5em;
+  display: inline;
+  float: right;
+}
+.post-content .aligncenter,
+.post-content img.aligncenter {
+  margin: 1.4em auto;
+  display: block;
+  clear: both;
+}
+.gallery {
+  display: table;
+}
+.fig {
+  width: 33.3%;
+}
+#inner-header,
+#inner-footer {
+  display: inline;
+  float: left;
+  width: 96.66666666666667%;
+  margin: 0 1.6666666666666667%;
+}
+main {
+  display: inline;
+  float: left;
+  width: 71.66666666666667%;
+  margin: 0 1.6666666666666667%;
+}
+#sidebar1 {
+  display: inline;
+  float: left;
+  width: 21.666666666666668%;
+  margin: 0 1.6666666666666667%;
+}
+#logo {
+  position: absolute;
+  top: 5px;
+  left: 1.6666666666666%;
+}
+#nav {
+  overflow: hidden;
+  margin-top: 80px;
+}
+#nav ul li {
+  float: left;
+  position: relative;
+  width: auto;
+}
+#nav ul li a {
+  border-bottom: 0;
+}
+#nav ul li ul.sub-menu,
+#nav ul li ul.children {
+  width: 200px;
+  border: 1px solid #ccc;
+  border-top: 0;
+  position: absolute;
+  display: none;
+  z-index: 8999;
+}
+#nav ul li ul.sub-menu li a,
+#nav ul li ul.children li a {
+  padding-left: 10px;
+  border-right: 0;
+  display: block;
+  width: 180px;
+  border-bottom: 1px solid #ccc;
+}
+#nav ul li ul.sub-menu li:last-child a,
+#nav ul li ul.children li:last-child a {
+  border-bottom: 0;
+}
+#nav ul li:hover ul {
+  top: auto;
+  display: block;
+}
+.js #nav {
+  position: relative;
+}
+.js #nav.closed {
+  max-height: none;
+}
+#nav-toggle {
+  display: none;
+}

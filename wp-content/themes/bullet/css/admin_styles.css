@@ -1,0 +1,54 @@
+.checkbox-meta,
+.radio-meta {
+  float: left;
+  width: auto;
+  margin: 3px 5px 0 0;
+}
+.add-file_button {
+  width: 30% !important;
+  margin-bottom: 0.3em;
+  border-radius: 3px;
+  float: left;
+  background: #FAFAFA;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#f4f4f4));
+  background-image: -webkit-linear-gradient(top, #fefefe, #f4f4f4);
+  background-image: -moz-linear-gradient(top, #fefefe, #f4f4f4);
+  background-image: -o-linear-gradient(top, #fefefe, #f4f4f4);
+  background-image: linear-gradient(to bottom, #fefefe, #f4f4f4);
+  border-color: #BBB;
+  color: #333;
+  text-shadow: 0 1px 0 #FFF;
+}
+.add-file_button:hover {
+  cursor: pointer;
+  background: #F3F3F3;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#f3f3f3));
+  background-image: -webkit-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: -moz-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: -ms-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: -o-linear-gradient(top, #ffffff, #f3f3f3);
+  background-image: linear-gradient(to bottom, #ffffff, #f3f3f3);
+  border-color: #999;
+  color: #222;
+}
+.file-display-box {
+  margin-bottom: 0.3em;
+  font-size: 1em;
+  min-height: 25px;
+  padding-top: 0.2em;
+}
+.file-display-box a {
+  padding: 2px 0.6em;
+  border-radius: 3px;
+  background: #FFF;
+  border: 1px solid #DDD;
+  color: #666;
+  text-decoration: none;
+  line-height: 15px;
+  display: inline-block;
+}
+.remove-file_link {
+  font-size: 0.9em;
+  display: inline-block;
+  margin-bottom: 0.2em;
+}

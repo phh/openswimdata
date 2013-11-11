@@ -1,0 +1,137 @@
+/******************************************************************
+Stylesheet: Media Queries
+******************************************************************/
+// This file loads styles for larger screen sizes and is called at
+// the end of style.less. There are four media query stylesheets
+// by default. These are loaded using the four breakpoints below.
+// The print styles are also here!
+
+// These import files contain less functions with css inside.
+// We use less functions so ie.less can call them directly for old browsers.
+@import "mixins.less";
+@import "media-1.less";
+@import "media-2.less";
+@import "media-3.less";
+@import "media-4.less";
+@import "media-5.less";
+
+// Below, media queries call the correct functions from the imported files.
+
+// STYLES.LESS // <= 321px
+
+
+// LARGER SIZE 1
+@media only screen and (min-width: 20.125em) { // 322px
+
+	/* styles in media-1.less */
+	.media-1();
+
+} /* end of media query */
+
+
+// LARGER SIZE 2
+@media only screen and (min-width: 30em) { // 480px
+
+	/* styles in media-2.less */
+	.media-2();
+
+} /* end of media query */
+
+
+// LARGER SIZE 3
+@media only screen and (min-width: 49em) { // 784px
+
+	/* styles in media-3.less */
+	.media-3();
+
+} /* end of media query */
+
+
+// LARGER SIZE 4
+@media only screen and (min-width: 63em) { // 1008px
+
+	/* styles in media-4.less */
+	.media-4();
+
+} /* end of media query */
+
+// LARGER SIZE 5
+@media only screen and (min-width: 80em) { // 1280px
+
+	/* styles in media-5.less */
+	.media-5();
+
+} /* end of media query */
+
+
+// PRINT STYLESHEET
+@media print {
+	* {
+		background: transparent !important;
+		color: black !important;
+		text-shadow: none !important;
+		filter: none !important;
+		-ms-filter: none !important;
+	}
+
+	a, a:visited {
+		color: #444 !important;
+		text-decoration: underline;
+
+		// show links on printed pages
+		&:after {
+			content: " (" attr(href) ")";
+		}
+
+		/* show title too */
+		abbr[title]:after {
+			content: " (" attr(title) ")";
+		}
+	}
+
+	.ir a:after,
+	a[href^="javascript:"]:after,
+	a[href^="#"]:after {
+		content: "";
+	}
+
+	pre, blockquote {
+		border: 1px solid #999;
+		page-break-inside: avoid;
+	}
+
+	thead {
+		display: table-header-group;
+	}
+
+	tr, img {
+		page-break-inside: avoid;
+	}
+
+	img {
+		max-width: 100% !important;
+	}
+
+	@page {
+		margin: 0.5cm;
+	}
+
+	p, h2, h3 {
+		orphans: 3;
+		widows: 3;
+	}
+
+	h2,
+	h3 {
+		page-break-after: avoid;
+	}
+
+	// hide content people who print don't need to see
+	.sidebar,
+	.page-navigation,
+	.wp-prev-next,
+	.respond-form,
+	nav {
+		display: none;
+	}
+}

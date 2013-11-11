@@ -1,0 +1,136 @@
+// Stylesheet: Larger size 3
+// This is loaded on the 3rd breakpoint in media-queries.less
+
+.media-3() {
+
+// GENERAL ***************************/
+
+// GRID ***************************/
+
+#inner-header, #inner-footer {
+	.column(12);
+}
+
+main {
+	.column(9);
+}
+
+#sidebar1 {
+	.column(3);
+}
+
+// TYPOGRAPHY ***************************/
+
+// LINKS ***************************/
+
+// HEADER ***************************/
+
+#logo {
+	position: absolute;
+	top: 5px;
+	left: 1.6666666666666%;
+}
+// NAVIGATION ***************************/
+
+#nav {
+
+	overflow: hidden;
+	margin-top: 80px;
+
+	ul {
+
+		li {
+			float: left;
+			position: relative;
+			width: auto;
+
+			a {
+				border-bottom: 0;
+
+				// you can use hover styles here even though this size has the possibility of bieng a mobile device.
+				&:hover, &:focus {
+				}
+			}
+
+			&:first-child {}
+			&:last-child {}
+
+			ul.sub-menu,
+			ul.children {
+				width: 200px;
+				border: 1px solid #ccc;
+				border-top: 0;
+				position: absolute;
+				display: none;
+				z-index: 8999;
+
+				li {
+					a {
+						padding-left: 10px;
+						border-right: 0;
+						display: block;
+						width: 180px;
+						border-bottom: 1px solid #ccc;
+
+						&:hover,
+						&:focus {}
+						&:link {}
+					}
+					&:first-child {}
+					&:last-child {
+						a {
+							border-bottom: 0;
+						}
+					}
+
+					ul {}
+				}
+
+				// highlight sub-menu current page
+				li.current-menu-item,
+				li.current_page_item,
+				li.current-page-ancestor {
+					a {}
+				}
+			}
+
+			// showing sub-menus
+			&:hover ul {
+				top: auto;
+				display: block;
+			}
+
+		} // end .menu ul li
+
+		// highlight current page
+		li.current-menu-item,
+		li.current_page_item,
+		li.current-page-ancestor {
+			a {}
+		}  // end current highlighters
+
+	}
+
+} // end nav
+
+.js #nav {
+	position: relative;
+}
+.js #nav.closed {
+	max-height: none;
+}
+#nav-toggle {
+	display: none;
+}
+
+// POSTS & CONTENT ***************************/
+
+// PAGINATION ***************************/
+
+// FORMS ***************************/
+
+// SIDEBARS & ASIDES ***************************/
+
+// FOOTER STYLES ***************************/
+
+} // end of the function

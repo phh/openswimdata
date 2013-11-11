@@ -1,0 +1,159 @@
+// Stylesheet: Mixins & Constants
+
+
+// TOOLS *********************/
+
+// Nice image replacement
+// @see http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+.imageReplacement() {
+	text-indent: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+// Hides from all except screen readers
+.visuallyHidden() {
+  position: absolute;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  height: 1px; width: 1px;
+  margin: -1px; padding: 0; border: 0;
+}
+
+// The micro clearfix
+// @see http://nicolasgallagher.com/micro-clearfix-hack/
+.clearfix() {
+	*zoom: 1;
+	&:before,
+	&:after {
+		content: "";
+		display: table;
+	}
+	&:after {
+		clear: both;
+	}
+}
+
+
+
+// GRID *********************/
+// @see http://semantic.gs
+
+// Defaults which you can freely override
+@column-width: 60;
+@gutter-width: 40;
+@columns: 12;
+
+// Utility variable — you should never need to modify this
+@gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
+
+// Set @total-width to 100% for a fluid layout
+@total-width: 100%;
+
+// Uncomment these two lines and the star-hack width/margin lines below to enable sub-pixel fix for IE6 & 7. See http://tylertate.com/blog/2012/01/05/subpixel-rounding.html
+// @min-width: 960;
+// @correction: 0.5 / @min-width * 100 * 1%;
+
+// DO NOT EDIT - This is the maths for the grid system
+.row(@columns:@columns) {
+	display: block;
+	width: @total-width*((@gutter-width + @gridsystem-width)/@gridsystem-width);
+	margin: 0 @total-width*(((@gutter-width*.5)/@gridsystem-width)*-1);
+	.clearfix;
+}
+.column(@x,@columns:@columns) {
+	display: inline;
+	float: left;
+	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @gridsystem-width);
+	margin: 0 @total-width*((@gutter-width*.5)/@gridsystem-width);
+}
+.push(@offset:1) {
+	margin-left: @total-width*(((@gutter-width+@column-width)*@offset) / @gridsystem-width) + @total-width*((@gutter-width*.5)/@gridsystem-width);
+}
+.pull(@offset:1) {
+	margin-right: @total-width*(((@gutter-width+@column-width)*@offset) / @gridsystem-width) + @total-width*((@gutter-width*.5)/@gridsystem-width);
+}
+
+
+
+// COLORS *******************/
+
+// site colors
+@link: #198aca;
+
+
+// handy shades of gray
+@black: #000;
+@grayDarker: lighten(@black, 10%);
+@grayDark: lighten(@black, 25%);
+@gray: lighten(@black, 50%);
+@grayLight: lighten(@black, 75%);
+@grayLighter: lighten(@black, 90%);
+@white: #fff;
+
+// Crazy LESS colour generation (might be useful!) - pulled from Bootstrap
+@baseColor: #5c90c4; // Set a base color
+@complement: spin(@baseColor, 180);  // Determine a complementary color
+@split1: spin(@baseColor, 158);  // Split complements
+@split2: spin(@baseColor, -158);
+@triad1: spin(@baseColor, 135);  // Triads colors
+@triad2: spin(@baseColor, -135);
+@tetra1: spin(@baseColor, 90);   // Tetra colors
+@tetra2: spin(@baseColor, -90);
+@analog1: spin(@baseColor, 22);   // Analogs colors
+@analog2: spin(@baseColor, -22);
+
+
+
+// TRANISTION ******************/
+
+// .transition(all,2s);
+.transition(@what: all, @time: 0.2s) {
+	-webkit-transition: @what @time ease-out;
+	   -moz-transition: @what @time ease-out;
+ 		-ms-transition: @what @time ease-out;
+		 -o-transition: @what @time ease-out;
+			transition: @what @time ease-out;
+}
+
+
+
+// CSS3 GRADIENTS *****************/
+
+// .css-gradient(#dfdfdf,#f8f8f8);
+.cssGradient(@from: #dfdfdf, @to: #f8f8f8) {
+	background-color: @to;
+	background-image: -webkit-gradient(linear, left top, left bottom, from(@from), to(@to));
+	background-image: -webkit-linear-gradient(top, @from, @to);
+	background-image: -moz-linear-gradient(top, @from, @to);
+	background-image: -o-linear-gradient(top, @from, @to);
+	background-image: -ms-linear-gradient(top, @from, @to);
+	background-image: linear-gradient(top, @from, @to);
+}
+
+
+
+// BOX SIZING ********************/
+
+// .boxSizing(border-box);
+.boxSizing(@type: border-box) {
+	-webkit-box-sizing: @type;
+	   -moz-box-sizing: @type;
+		-ms-box-sizing: @type;
+		 -o-box-sizing: @type;
+			box-sizing: @type;
+}
+
+
+
+// BOX SHADOW *****************/
+
+// .boxShadow(0 0 4px #444);
+.boxShadow(@x: 0, @y: 0, @radius: 4px, @spread: 0, @color: rgba(0,0,0,0.5)) {
+	-webkit-box-shadow: @x @y @radius @spread @color;
+	   -moz-box-shadow: @x @y @radius @spread @color;
+		-ms-box-shadow: @x @y @radius @spread @color;
+		 -o-box-shadow: @x @y @radius @spread @color;
+			box-shadow: @x @y @radius @spread @color;
+}
+

@@ -1,0 +1,589 @@
+// Stylesheet: Base styles for all screen sizes
+
+// Advice:
+// Build styles here that you want on all screen sizes.
+// In practice this means only styles that you need for the smallest screens.
+// You can add styles that are only for larger screens in the media stylesheets.
+
+// For LESS you need to compile...
+// - styles.less to /css/style.css (this file)
+// - ie.less to /css/ie.css
+// - media-queries.less to /css/media-queries.css
+// (the other LESS files are includes)
+
+// IMPORTING STYLES
+@import "normalize.less";
+@import "mixins.less";
+
+
+// RESETS ***************************/
+// For the few things normalize.less doesn't do
+// Do not edit normalize.less - it comes straight from git - git.io/normalize
+
+ul,ol { // Remember to make a style inside post-content for bulleted lists.
+	padding-left: 0;
+	margin: 0;
+	list-style: none;
+}
+
+
+
+// GENERAL ***************************/
+
+body {
+	font-family: sans-serif;
+	// Set a base font-size here for normal-sized text (not on the p or post-content tag - works better when using ems)!
+	// NB: If you change the body font-size you must reconsider the breakpoints!
+	font-size: 100%; // 16px
+	line-height: 1.6;
+	color: #333;
+}
+
+
+
+// GRID ***************************/
+
+.wrap {
+	width: 92%;
+	margin: 0 auto;
+	position: relative;
+}
+
+
+
+// TYPOGRAPHY ***************************/
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4 {
+	font-weight: 700;
+
+	a {
+		text-decoration: none;
+	}
+}
+
+h1, .h1 {
+	font-size: 2.4em;
+	line-height: 1.2em;
+	margin: 0 0 0.5em 0;
+	word-wrap: break-word;
+}
+
+header > h1, header > .h1 {
+	margin-top: 0;
+}
+
+h2, .h2 {
+	font-size: 1.65em;
+	line-height: 1.2em;
+	margin: 1em 0 0.375em;
+	word-wrap: break-word;
+}
+
+h1 + h2, header > h2, header > .h2 {
+	margin-top: 0;
+}
+
+h3, .h3 {
+	font-size: 1.125em;
+	line-height: 1.2em;
+	margin: 1em 0 0.375em;
+}
+
+h2+h3 {
+	margin-top: 0;
+}
+
+h4, .h4 {
+	font-size: 1.1em;
+	font-weight: 700;
+}
+
+p {
+	margin: 0.3em 0 1em 0;
+}
+
+.screen-reader-text {
+	.visuallyHidden();
+}
+
+// LINKS ***************************/
+
+a, a:visited {
+	color: @link;
+
+	// on hover
+	&:hover, &:focus {
+		color: darken(@link, 15%);
+	}
+
+	// on click
+	&:active {
+
+	}
+
+	// mobile tap color
+	&:link {
+		-webkit-tap-highlight-color : rgba(0,0,0,0.3);
+	}
+}
+
+
+
+// HEADER ***************************/
+
+.header {
+	.clearfix();
+}
+
+
+	#inner-header {
+		.clearfix();
+	}
+
+	#logo {
+		margin: 0.5em 0;
+
+		a, img {
+			display: block;
+			width: 129px;
+			height: 45px;
+		}
+	}
+
+
+
+// NAVIGATION ***************************/
+
+#nav {
+
+	margin: 0;
+	background-color: #f1f1f1;
+	.clearfix();
+
+	ul {
+
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		display: block;
+		list-style: none;
+
+		li {
+
+			width: 100%;
+			display: block;
+
+			a {
+				display: block;
+				text-decoration: none;
+				padding: 0.8em;
+				color: #333;
+
+				&:hover, &:focus {}
+			}
+
+			ul.sub-menu,
+			ul.children {
+
+				li {
+
+					a {
+						padding-left: 30px;
+
+						&:hover,
+						&:focus {}
+					}
+
+				}
+
+			}
+
+		} // end .menu ul li
+
+		// highlight current page
+		li.current-menu-item,
+		li.current_page_item,
+		li.current-page-ancestor {
+
+			a {}
+
+		}  // end current highlighters
+
+	} // end .menu ul
+
+}
+
+.js #nav {
+	clip: rect(0 0 0 0);
+	max-height: 0;
+	position: absolute;
+	display: block;
+	overflow: hidden;
+	zoom: 1;
+}
+
+#nav.opened {
+  max-height: 9999px;
+}
+
+#nav-toggle {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: 55px;
+  height: 55px;
+  float: right;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: @link url("../img/nav_toggle.gif") no-repeat 50% 38%;
+}
+
+
+
+// POSTS & CONTENT ***************************/
+
+#content {
+	margin-top: 2.2em;
+}
+
+	#inner-content {
+		overflow: hidden;
+	}
+
+	main {
+		display: block;
+		overflow: hidden;
+		position: relative;
+	}
+
+		// post meta
+		.meta {
+			color: @grayDark;
+			time {}
+		}
+
+		article {
+			overflow: hidden;
+		}
+
+		// post content
+		.post-content {
+
+			overflow: hidden;
+
+			ul, ol {
+				padding-left: 40px;
+
+				li {
+					line-height: 1.4em;
+					margin-bottom: 0.5em;
+				}
+
+			}
+
+			ul {
+				list-style-type: disc;
+			}
+
+			ol {
+				list-style-type: decimal;
+			}
+
+			blockquote {
+
+				&:before {}
+
+			}
+
+			img {
+				max-width: 100%;
+			}
+
+			video, audio, object {
+				max-width: 100%;
+			}
+
+		} // end .post-content
+
+		// galleries
+		.gallery {
+
+		}
+			.fig {
+				float: left;
+				margin-top: 10px;
+				text-align: center;
+				width: 49.9%;
+
+				.gallery-item {
+					margin: 0 4%;
+					border: 1px solid #ddd;
+					img {
+						display: block;
+					}
+				}
+
+				figcaption {
+					background: #EEE;
+					padding: 0.2em 0.5em;
+				}
+			}
+
+		// captions for images and galleries
+		.gallery-caption, .wp-caption-text {
+			font-size: 0.8em;
+		}
+
+		// figures with captions
+		.wp-caption {
+
+			img {
+				display: block;
+			}
+			figcaption {
+				background: #EEE;
+				padding: 0.2em 0.5em;
+			}
+		}
+
+
+
+// PAGINATION ***************************/
+
+.page-navigation,
+.wp-prev-next {
+	margin: 1.1em 0 2.2em;
+	overflow: hidden;
+}
+	.bullet_page_navi {
+		overflow: hidden;
+
+		li {
+			float: left;
+			margin-left: 0.8em;
+
+			a {
+				padding: 0.3em 0.8em;
+				display: block;
+				text-decoration: none;
+				position: relative;
+
+				&:hover,
+				&:focus {
+					color: @link;
+				}
+			}
+
+		}
+
+		// current page link
+		li.bpn-current {
+			padding: 0.3em 0.6em;
+			background: @link;
+			color: #FFF;
+			position: relative;
+
+			a {
+				// hovering on current page link
+				&:hover,
+				&:focus {}
+
+			}
+
+		} // end .bullet_page_navi .bpn-current
+
+		// previous link
+		li.bpn-prev-link {
+			a {
+				&:hover,
+				&:focus {}
+			}
+		}
+
+		// next page link
+		li.bpn-next-link {
+			a {
+				&:hover,
+				&:focus {}
+			}
+		}
+
+		// first page link
+		li.bpn-first-page-link {
+			a {
+				&:hover,
+				&:focus {}
+			}
+		}
+
+		// last page link
+		li.bpn-last-page-link {
+			a {
+				&:hover,
+				&:focus {}
+			}
+		}
+
+	} // end .bullet_page_navi
+
+	// fallback previous & next links
+	.wp-prev-next {
+		overflow: hidden;
+
+		ul {}
+
+		.prev-link {
+			float: left;
+		}
+
+		.next-link {
+			float: right;
+		}
+
+	} // end .wp-prev-next
+
+
+
+// FORMS ***************************/
+// Still a lot of work to do
+
+.button, .button:visited, input[type="submit"] {
+	padding: 0.4em 0.8em;
+	color: @white;
+	background: #444;
+	border: 1px solid #444;
+	display: inline-block;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: pointer;
+	margin: 0.8em 0;
+	line-height: 1.1em;
+	.transition();
+	border-radius: 4px;
+
+	&:hover, &:focus {
+		color: @white;
+		background: #111;
+	}
+
+	&:active {
+	}
+
+}
+
+input[type="text"], textarea {
+	-webkit-appearance: none; // iOS input and text area - removes default style
+	-webkit-border-radius: 0;
+	border-radius: 0;
+	border: 1px solid @gray;
+	padding: 0.3em 0.4em;
+	min-width: 60%;
+	max-width: 90%;
+}
+
+
+
+// SIDEBARS & ASIDES ***************************/
+
+.sidebar {
+	margin-top: 2.2em;
+	overflow: hidden;
+	line-height: 1.3em;
+}
+
+	.widgettitle {}
+
+	.widget {
+		margin: 0 0 2.2em 0;
+		h2 {
+			margin: 0 0 0.3em;
+		}
+		ul {
+			list-style: none;
+
+			li {
+				margin-bottom: 0.5em;
+
+				&:first-child {}
+
+				&:last-child {}
+
+				a {
+					text-decoration: none;
+				}
+
+				// deep nesting
+				ul {}
+
+			}
+
+		}
+
+	}
+
+
+
+// FOOTER ***************************/
+
+.footer {
+
+	clear: both;
+
+	#footer-outer {
+		overflow: hidden;
+	}
+
+}
+
+
+
+// RESPONSIVE EMBEDS ***************************/
+
+.rve-embed-container {
+
+	max-width: 100%;
+	margin: 0 0 1.5em;
+
+	/** Dynamic responsive container */
+	.rve-embed-container-inner {
+		position: relative !important;
+		padding-bottom: 56.25% !important; /* 16/9 ratio */
+		padding-top: 30px !important; /* IE6 workaround*/
+		height: 0 !important;
+		overflow: hidden !important;
+	}
+
+	/** Embed elements */
+	iframe,
+	object,
+	embed {
+		position: absolute !important;
+		top: 0 !important;
+		left: 0 !important;
+		width: 100% !important;
+		height: 100% !important;
+	}
+}
+
+
+// RETINA ***************************/
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min-resolution: 144dpi) {
+	#logo {
+		a {
+			background: url('../img/logo@2x.png') no-repeat 0 0;
+			background-size: 129px 45px;
+		}
+		img {
+			display: none;
+		}
+	}
+	#nav-toggle {
+		background-image: url("../img/nav_toggle@2x.gif");
+		-webkit-background-size: 100px 100px;
+		-moz-background-size: 100px 100px;
+		-o-background-size: 100px 100px;
+		background-size: 100px 100px;
+	}
+}
