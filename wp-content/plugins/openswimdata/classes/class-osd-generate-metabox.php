@@ -5,7 +5,7 @@
  * @package WordPress
  * @subpackage OpenSwimData
  */ 
-class Bullet_Meta_Box {
+class OSD_Generate_Metabox {
 
 	var $box_title; // Title, displayed at the top of the meta box.
 	var $post_types; // Where to display the meta box - post, page, custom post type, etc.
@@ -19,7 +19,7 @@ class Bullet_Meta_Box {
 	 * @param array $info Box info
 	 * @param array $options All the fields in the box
 	 */
-	function bullet_meta_box( $info, $options ) {
+	function osd_generate_metabox( $info, $options ) {
 		$this->info = $info;
 		$this->box_title = $info['title'];
 		$this->post_types = $info['post_types'];

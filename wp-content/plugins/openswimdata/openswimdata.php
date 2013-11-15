@@ -25,7 +25,7 @@ class Openswimdata {
 		self::$PLUGIN_URL = plugins_url( '/', __FILE__ );
 		self::$PLUGIN_DIR = plugin_dir_path( __FILE__ );
 
-		include self::$PLUGIN_DIR . 'classes/class-generate-metabox.php';
+		include self::$PLUGIN_DIR . 'classes/class-osd-generate-metabox.php';
 	}
 
 	function register_plugin_hooks() {
@@ -62,9 +62,9 @@ class Openswimdata {
 	}
 
 	function register_post_metaboxes() {
-		new Bullet_Meta_Box( $this->metabox_swimmer_info(), $this->metabox_swimmer_options() );
-		new Bullet_Meta_Box( $this->metabox_result_info(), $this->metabox_result_options() );
-		new Bullet_Meta_Box( $this->metabox_meeting_info(), $this->metabox_meeting_options() );
+		new OSD_Generate_Metabox( $this->metabox_swimmer_info(), $this->metabox_swimmer_options() );
+		new OSD_Generate_Metabox( $this->metabox_result_info(), $this->metabox_result_options() );
+		new OSD_Generate_Metabox( $this->metabox_meeting_info(), $this->metabox_meeting_options() );
 	}
 
 	function register_taxonomy_metaboxes() {
