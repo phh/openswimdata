@@ -323,7 +323,7 @@ class Openswimdata {
 
 		$post_types = array( 'swimmer' );
 
-	 	register_taxonomy( 'gender', $post_types, $args );
+		register_taxonomy( 'gender', $post_types, $args );
 	 }
 
 	function taxonomy_pool() {
@@ -352,7 +352,7 @@ class Openswimdata {
 
 		$post_types = array( 'result' );
 
-	 	register_taxonomy( 'pool', $post_types, $args );
+		register_taxonomy( 'pool', $post_types, $args );
 	}
 
 	function taxonomy_year() {
@@ -381,7 +381,7 @@ class Openswimdata {
 
 		$post_types = array( 'result' );
 
-	 	register_taxonomy( 'year', $post_types, $args );
+		register_taxonomy( 'year', $post_types, $args );
 	}
 
 	function taxonomy_style() {
@@ -410,7 +410,7 @@ class Openswimdata {
 
 		$post_types = array( 'result' );
 
-	 	register_taxonomy( 'style', $post_types, $args );
+		register_taxonomy( 'style', $post_types, $args );
 	}
 
 	function taxonomy_distance() {
@@ -439,7 +439,7 @@ class Openswimdata {
 
 		$post_types = array( 'result' );
 
-	 	register_taxonomy( 'distance', $post_types, $args );
+		register_taxonomy( 'distance', $post_types, $args );
 	}
 
 	function taxonomy_club() {
@@ -468,7 +468,7 @@ class Openswimdata {
 
 		$post_types = array( 'swimmer', 'result' );
 
-	 	register_taxonomy( 'club', $post_types, $args );
+		register_taxonomy( 'club', $post_types, $args );
 	}
 
 	function taxonomy_city() {
@@ -497,7 +497,7 @@ class Openswimdata {
 
 		$post_types = array( 'meeting' );
 
-	 	register_taxonomy( 'city', $post_types, $args );
+		register_taxonomy( 'city', $post_types, $args );
 	}
 
 	/* Taxonomies * * * * * * * * * * * * * * * * * * */
