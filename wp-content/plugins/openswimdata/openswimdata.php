@@ -68,12 +68,14 @@ class Openswimdata {
 	}
 
 	function register_taxonomy_metaboxes() {
-		// Gender
-		add_action( 'gender_add_form_fields', array( &$this, 'sr_id_add_form_fields' ) );
-		add_action( 'gender_edit_form_fields', array( &$this, 'sr_id_edit_form_fields' ) );
-		add_action( 'created_gender', array( &$this, 'save_sr_id' ) );
-		add_action( 'edited_gender', array( &$this, 'save_sr_id' ) );
-		// Pool
+		$taxonomies = array( 'gender', 'pool', 'year', 'style', 'distance');
+
+		foreach( $taxonomies as $taxonomy ) {
+			add_action( $taxonomy . '_add_form_fields', array( &$this, 'sr_id_add_form_fields' ) );
+			add_action( $taxonomy . '_edit_form_fields', array( &$this, 'sr_id_edit_form_fields' ) );
+			add_action( 'created_' . $taxonomy, array( &$this, 'save_sr_id' ) );
+			add_action( 'edited_' . $taxonomy, array( &$this, 'save_sr_id' ) );
+		}
 	}
 
 
@@ -331,11 +333,11 @@ class Openswimdata {
 			'search_items' => _osd__( 'Search Pools' ),
 			'popular_items' => _osd__( 'Popular Pools' ),
 			'all_items' => _osd__( 'All Pools' ),
-			'edit_item' => _osd__( 'Edit Gender' ),
-			'view_item' => _osd__( 'View Gender' ),
-			'update_item' => _osd__( 'Update Gender' ),
-			'add_new_item' => _osd__( 'Add New Gender' ),
-			'new_item_name' => _osd__( 'New Gender Name' ),
+			'edit_item' => _osd__( 'Edit Pool' ),
+			'view_item' => _osd__( 'View Pool' ),
+			'update_item' => _osd__( 'Update Pool' ),
+			'add_new_item' => _osd__( 'Add New Pool' ),
+			'new_item_name' => _osd__( 'New Pool Name' ),
 			'add_or_remove_items' => _osd__( 'Add or remove pools' ),
 			'not_found' => _osd__( 'No pools found.' ),
 			'menu_name' => _osd__( 'Pools' )
@@ -519,7 +521,7 @@ class Openswimdata {
 				<label for="sr-id"><?php printf( _osd_x( 'Swimrankings %s ID', 'Taxonomy Slug' ), $taxonomy ); ?></label>
 			</th>
 			<td>
-				<input name="sr_gender" id="sr-id" type="text" value="<?php echo $this->get_term_meta( $taxonomy, $term_id ); ?>" size="40" />
+				<input name="sr_<?php echo $taxonomy; ?>" id="sr-id" type="text" value="<?php echo $this->get_term_meta( $taxonomy, $term_id ); ?>" size="40" />
 				<p class="description"><?php printf( _osd__( 'Info for internal use only. This is the current %s id from swimrankings.' ), $taxonomy ); ?></p>
 			</td>
 		</tr>
