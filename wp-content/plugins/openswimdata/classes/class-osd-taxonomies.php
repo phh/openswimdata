@@ -6,7 +6,7 @@
  * @subpackage OpenSwimData
  */ 
 class OSD_Taxonomies {
-	protected $_taxonomies = array( 'gender', 'pool', 'season', 'style', 'distance', 'club', 'year', 'date', 'city', 'national' );
+	protected $_taxonomies = array( 'gender', 'pool', 'season', 'style', 'distance', 'club', 'year', 'date', 'city', 'event', 'national' );
 
 	function __construct() {
 		$this->register_taxonomies();
@@ -306,9 +306,38 @@ class OSD_Taxonomies {
 			'hierarchical' => true
 		);
 
-		$post_types = array( 'swimmer' );
+		$post_types = array( 'swimmer', 'result' );
 
 		register_taxonomy( 'national', $post_types, $args );
+	}
+
+	function taxonomy_event() {
+		$labels = array(
+			'name' => _osd_x( 'Events', 'taxonomy general name' ),
+			'singular_name' => _osd__( 'Event' ),
+			'search_items' => _osd__( 'Search Events' ),
+			'popular_items' => _osd__( 'Popular Events' ),
+			'all_items' => _osd__( 'All Events' ),
+			'edit_item' => _osd__( 'Edit Event' ),
+			'view_item' => _osd__( 'View Event' ),
+			'update_item' => _osd__( 'Update Event' ),
+			'add_new_item' => _osd__( 'Add New Event' ),
+			'new_item_name' => _osd__( 'New Event Name' ),
+			'add_or_remove_items' => _osd__( 'Add or remove events' ),
+			'not_found' => _osd__( 'No events found.' ),
+			'menu_name' => _osd__( 'Events' )
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'show_admin_column' => true,
+			'hierarchical' => true
+		);
+
+		$post_types = array( 'meeting' );
+
+		register_taxonomy( 'event', $post_types, $args );
 	}
 }
 
