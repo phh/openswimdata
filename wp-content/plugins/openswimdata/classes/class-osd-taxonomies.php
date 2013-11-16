@@ -6,7 +6,7 @@
  * @subpackage OpenSwimData
  */ 
 class OSD_Taxonomies {
-	protected $_taxonomies = array( 'gender', 'pool', 'year', 'style', 'distance', 'club', 'city' );
+	protected $_taxonomies = array( 'gender', 'pool', 'season', 'style', 'distance', 'club', 'year', 'date', 'city', 'national' );
 
 	function __construct() {
 		$this->register_taxonomies();
@@ -79,21 +79,21 @@ class OSD_Taxonomies {
 		register_taxonomy( 'pool', $post_types, $args );
 	}
 
-	function taxonomy_year() {
+	function taxonomy_season() {
 		$labels = array(
-			'name' => _osd_x( 'Years', 'taxonomy general name' ),
-			'singular_name' => _osd__( 'Year' ),
-			'search_items' => _osd__( 'Search Years' ),
-			'popular_items' => _osd__( 'Popular Years' ),
-			'all_items' => _osd__( 'All Years' ),
-			'edit_item' => _osd__( 'Edit Year' ),
-			'view_item' => _osd__( 'View Year' ),
-			'update_item' => _osd__( 'Update Year' ),
-			'add_new_item' => _osd__( 'Add New Year' ),
-			'new_item_name' => _osd__( 'New Year Name' ),
-			'add_or_remove_items' => _osd__( 'Add or remove years' ),
-			'not_found' => _osd__( 'No years found.' ),
-			'menu_name' => _osd__( 'Years' )
+			'name' => _osd_x( 'Seasons', 'taxonomy general name' ),
+			'singular_name' => _osd__( 'Season' ),
+			'search_items' => _osd__( 'Search Seasons' ),
+			'popular_items' => _osd__( 'Popular Seasons' ),
+			'all_items' => _osd__( 'All Seasons' ),
+			'edit_item' => _osd__( 'Edit Season' ),
+			'view_item' => _osd__( 'View Season' ),
+			'update_item' => _osd__( 'Update Season' ),
+			'add_new_item' => _osd__( 'Add New Season' ),
+			'new_item_name' => _osd__( 'New Season Name' ),
+			'add_or_remove_items' => _osd__( 'Add or remove seasons' ),
+			'not_found' => _osd__( 'No seasons found.' ),
+			'menu_name' => _osd__( 'Seasons' )
 		);
 
 		$args = array(
@@ -105,7 +105,7 @@ class OSD_Taxonomies {
 
 		$post_types = array( 'result' );
 
-		register_taxonomy( 'year', $post_types, $args );
+		register_taxonomy( 'season', $post_types, $args );
 	}
 
 	function taxonomy_style() {
@@ -222,6 +222,93 @@ class OSD_Taxonomies {
 		$post_types = array( 'meeting' );
 
 		register_taxonomy( 'city', $post_types, $args );
+	}
+
+	function taxonomy_year() {
+		$labels = array(
+			'name' => _osd_x( 'Years', 'taxonomy general name' ),
+			'singular_name' => _osd__( 'Year' ),
+			'search_items' => _osd__( 'Search Years' ),
+			'popular_items' => _osd__( 'Popular Years' ),
+			'all_items' => _osd__( 'All Years' ),
+			'edit_item' => _osd__( 'Edit Year' ),
+			'view_item' => _osd__( 'View Year' ),
+			'update_item' => _osd__( 'Update Year' ),
+			'add_new_item' => _osd__( 'Add New Year' ),
+			'new_item_name' => _osd__( 'New Year Name' ),
+			'add_or_remove_items' => _osd__( 'Add or remove years' ),
+			'not_found' => _osd__( 'No years found.' ),
+			'menu_name' => _osd__( 'Years' )
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'show_admin_column' => true,
+			'hierarchical' => true
+		);
+
+		$post_types = array( 'swimmer' );
+
+		register_taxonomy( 'year', $post_types, $args );
+	}
+
+	function taxonomy_date() {
+		$labels = array(
+			'name' => _osd_x( 'Dates', 'taxonomy general name' ),
+			'singular_name' => _osd__( 'Date' ),
+			'search_items' => _osd__( 'Search Dates' ),
+			'popular_items' => _osd__( 'Popular Dates' ),
+			'all_items' => _osd__( 'All Dates' ),
+			'edit_item' => _osd__( 'Edit Date' ),
+			'view_item' => _osd__( 'View Date' ),
+			'update_item' => _osd__( 'Update Date' ),
+			'add_new_item' => _osd__( 'Add New Date' ),
+			'new_item_name' => _osd__( 'New Year Date' ),
+			'add_or_remove_items' => _osd__( 'Add or remove dates' ),
+			'not_found' => _osd__( 'No dates found.' ),
+			'menu_name' => _osd__( 'Dates' )
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'show_admin_column' => true,
+			'hierarchical' => true
+		);
+
+		$post_types = array( 'result' );
+
+		register_taxonomy( 'date', $post_types, $args );
+	}
+
+	function taxonomy_national() {
+		$labels = array(
+			'name' => _osd_x( 'Nationals', 'taxonomy general name' ),
+			'singular_name' => _osd__( 'National' ),
+			'search_items' => _osd__( 'Search Nationals' ),
+			'popular_items' => _osd__( 'Popular Nationals' ),
+			'all_items' => _osd__( 'All Nationals' ),
+			'edit_item' => _osd__( 'Edit National' ),
+			'view_item' => _osd__( 'View National' ),
+			'update_item' => _osd__( 'Update National' ),
+			'add_new_item' => _osd__( 'Add New National' ),
+			'new_item_name' => _osd__( 'New National Name' ),
+			'add_or_remove_items' => _osd__( 'Add or remove nationals' ),
+			'not_found' => _osd__( 'No nationals found.' ),
+			'menu_name' => _osd__( 'Nationals' )
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'public' => true,
+			'show_admin_column' => true,
+			'hierarchical' => true
+		);
+
+		$post_types = array( 'swimmer' );
+
+		register_taxonomy( 'national', $post_types, $args );
 	}
 }
 

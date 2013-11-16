@@ -9,6 +9,7 @@ Author: Patrick Hesselberg
 class Openswimdata {
 	public $_post_types;
 	public $_taxonomies;
+	public $_p2p;
 
 	static public $PLUGIN_URL;
 	static public $PLUGIN_DIR;
@@ -29,6 +30,7 @@ class Openswimdata {
 		$this->_taxonomies = new OSD_Taxonomies;
 		$this->_post_types_metabox = new OSD_Post_Types_Metabox;
 		$this->_taxonomies_metabox = new OSD_Taxonomies_Metaboxes;
+		$this->_p2p = new OSD_P2P;
 	}
 
 	function inc() {
@@ -36,6 +38,7 @@ class Openswimdata {
 		include self::$PLUGIN_DIR . 'classes/class-osd-post-types-metabox.php';
 		include self::$PLUGIN_DIR . 'classes/class-osd-taxonomies.php';
 		include self::$PLUGIN_DIR . 'classes/class-osd-taxonomies-metabox.php';
+		include self::$PLUGIN_DIR . 'classes/class-osd-p2p.php';
 	}
 
 	function register_plugin_hooks() {

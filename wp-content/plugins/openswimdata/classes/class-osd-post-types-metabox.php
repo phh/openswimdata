@@ -66,16 +66,6 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 			),
 			array(
 				'type' => 'text',
-				'label' => _osd__( 'Year' ),
-				'name' => 'year'
-			),
-			array(
-				'type' => 'text',
-				'label' => _osd__( 'National' ),
-				'name' => 'national'
-			),
-			array(
-				'type' => 'text',
 				'label' => _osd__( 'Swimrankings athlete ID' ),
 				'name' => 'sr_id',
 				'desc' => _osd__( 'Info for internal use only. This is the current athlete id from swimrankings.' )
