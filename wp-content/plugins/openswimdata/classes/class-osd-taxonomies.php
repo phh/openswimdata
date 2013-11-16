@@ -248,7 +248,7 @@ class OSD_Taxonomies {
 			'hierarchical' => true
 		);
 
-		$post_types = array( 'swimmer' );
+		$post_types = array( 'swimmer', 'result' );
 
 		register_taxonomy( 'year', $post_types, $args );
 	}
