@@ -82,18 +82,13 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 			),
 			array(
 				'type' => 'text',
-				'label' => _osd__( 'Rank Europe' ),
-				'name' => 'rank_eu'
-			),
-			array(
-				'type' => 'text',
 				'label' => _osd__( 'Rank National' ),
 				'name' => 'rank_nat'
 			),
 			array(
 				'type' => 'text',
-				'label' => _osd__( 'Date' ),
-				'name' => 'date'
+				'label' => _osd__( 'Rank Europe' ),
+				'name' => 'rank_eu'
 			),
 			array(
 				'type' => 'text',
