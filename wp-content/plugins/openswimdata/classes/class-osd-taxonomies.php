@@ -42,7 +42,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'meeting' );
@@ -71,7 +71,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'swimmer', 'result' );
@@ -100,7 +100,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'result' );
@@ -129,7 +129,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'result' );
@@ -158,7 +158,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'meeting' );
@@ -187,7 +187,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'swimmer' );
@@ -216,7 +216,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'swimmer', 'result' );
@@ -245,7 +245,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'result' );
@@ -274,7 +274,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'result' );
@@ -303,7 +303,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'result' );
@@ -332,7 +332,7 @@ class OSD_Taxonomies {
 			'labels' => $labels,
 			'public' => true,
 			'show_admin_column' => true,
-			'hierarchical' => true
+			'hierarchical' => false
 		);
 
 		$post_types = array( 'swimmer', 'result' );
