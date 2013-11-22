@@ -50,6 +50,11 @@ class OSD_Taxonomies_Metaboxes extends OSD_Taxonomies {
 	}
 
 	function save_sr_id( $term_id ) {
+		// Return if saved in the crawler. We'll handle saving the data there.
+		if( empty( $_POST ) ) {
+			return;
+		}
+
 		$taxonomy = $_POST['taxonomy'];
 		$key = 'sr_' . $taxonomy;
 		$value = $_POST[$key];
@@ -75,7 +80,7 @@ class OSD_Taxonomies_Metaboxes extends OSD_Taxonomies {
 	}
 
 	function get_term_meta( $taxonomy, $term_id ) {
-		$option = $this->name_term_meta( $taxonomy, $term_id  );
+		$option = self::name_term_meta( $taxonomy, $term_id  );
 
 		return get_option( $option );
 	}
