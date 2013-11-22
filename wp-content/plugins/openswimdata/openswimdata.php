@@ -19,6 +19,7 @@ class Openswimdata {
 		$this->load();
 		$this->register_plugin_hooks();
 		$this->enqueue();
+		$this->cron_schedules();
 	}
 
 	function load() {
@@ -74,6 +75,32 @@ class Openswimdata {
 
 	function css() {
 		wp_enqueue_style( 'osd-style', self::$PLUGIN_URL . 'assets/css/style.css' );
+	}
+
+
+	/* Cron * * * * * * * * * * * * * * * * * * */
+
+	function cron_schedules() {
+		add_filter( 'cron_schedules', array( &$this, 'cron_schedule_weekly' ) );
+		add_filter( 'cron_schedules', array( &$this, 'cron_schedule_30_days' ) );
+	}
+
+	function cron_schedule_weekly( $schedules ) {
+		$schedules['weekly'] = array(
+			'interval' => WEEK_IN_SECONDS,
+			'display' => _osd__( 'Once Weekly' )
+		);
+
+		return $schedules;
+	}
+
+	function cron_schedule_30_days( $schedules ) {
+		$schedules['30_days'] = array(
+			'interval' => 30 * DAY_IN_SECONDS,
+			'display' => _osd__( '30 Days' )
+		);
+
+		return $schedules;
 	}
 }
 
