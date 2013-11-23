@@ -11,6 +11,7 @@ class OSD_Crawler_Plugin {
 		require plugin_dir_path( __FILE__ ) . 'lib/class-osd-generate-urls.php';
 
 		$this->register_plugin_hooks();
+		$this->cron();
 	}
 
 	function register_plugin_hooks() {
@@ -22,9 +23,63 @@ class OSD_Crawler_Plugin {
 		add_option( 'osd_urls', array() );
 		add_option( 'osd_style_urls', array() );
 		add_option( 'osd_base_urls', array() );
+
+		if ( ! wp_next_scheduled( 'osd_crawler_base_urls' ) ) {
+			wp_schedule_event( strtotime( 'monday' ), 'weekly', 'osd_crawler_base_urls' );
+		}
 	}
 
-	function deactivate() {}
+	function deactivate() {
+		wp_clear_scheduled_hook( 'osd_crawler_base_urls' );
+		wp_clear_scheduled_hook( 'osd_crawler_style_urls' );
+		$this->wp_unschedule_hook( 'osd_crawler_style_url' );
+	}
+
+	function cron() {
+		add_action( 'osd_crawler_base_urls', array( &$this, 'osd_crawler_base_urls' ) );
+		add_action( 'osd_crawler_style_urls', array( &$this, 'osd_crawler_style_urls' ) );
+		add_action( 'osd_crawler_style_url', array( &$this, 'osd_crawler_style_url' ) );
+	}
+
+	/**
+	 * http://core.trac.wordpress.org/ticket/18997 #cron.patch
+	 */
+	function wp_unschedule_hook( $hook ) {
+		$crons = _get_cron_array();
+
+		if ( empty( $crons ) ) {
+			return;
+		}
+
+		foreach($crons as $timestamp => $args) {
+			unset( $crons[$timestamp][$hook] );
+		}
+
+		_set_cron_array( $crons, 'removed' );
+	}
+
+	function make_style_urls_cron() {
+		if ( ! wp_next_scheduled( 'osd_crawler_style_urls' ) ) {
+			wp_schedule_event( time(), 'weekly', 'osd_crawler_style_urls' );
+		}
+	}
+
+	function osd_crawler_base_urls() {
+		$crawler = new OSD_Generate_Urls;
+		$crawler->make_base_urls();
+
+		$this->make_style_urls_cron();
+	}
+
+	function osd_crawler_style_urls() {
+		$crawler = new OSD_Generate_Urls;
+		$crawler->make_style_urls();
+	}
+
+	function osd_crawler_style_url( $url ) {
+		$crawler = new OSD_Generate_Urls;
+		$crawler->make_style_url( $url );
+	}
 }
 
 new OSD_Crawler_Plugin;
