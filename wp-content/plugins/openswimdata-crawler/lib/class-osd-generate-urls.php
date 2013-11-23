@@ -7,15 +7,10 @@ Author: Patrick Hesselberg
 */
 
 class OSD_Generate_Urls {
-	static public $PLUGIN_URL;
-	static public $PLUGIN_DIR;
 
 	function __construct() {
 		require_once 'class-osd-crawler.php';
 		require_once 'simple_html_dom.php';
-
-		$this->make_base_urls();
-		$this->make_style_urls();
 	}
 
 	function make_base_urls() {
@@ -39,14 +34,32 @@ class OSD_Generate_Urls {
 
 	function make_style_urls() {
 		$base_urls = get_option( 'osd_base_urls' );
-		$style_urls = array();
+		$style_urls = get_option( 'osd_style_urls' );
+		$new_style_urls = array();
+
 		$crawler = new OSD_Style_Crawler;
-#$count = 0;
-		foreach( $base_urls as $base_url ) {#$count++;
-			$crawler->set_url( $base_url );
-			$crawler->request();
-			$style_urls[$base_url] = $crawler->get_styles_urls();#if( $count >= 10 ) die(krumo($style_urls));
-		}die(krumo($style_urls));
+
+		foreach( $base_urls as $url ) {
+			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_style_url', array( $url ) );
+		}
+	}
+
+	function make_style_url( $url ) {
+		$style_urls = get_option( 'osd_style_urls' );
+		$crawler = new OSD_Style_Crawler;
+
+		$crawler->set_url( $url );
+		$crawler->request();
+		$crawler_styles_url = $crawler->get_styles_urls();
+
+		if( array_key_exists( $url, $style_urls ) ) {
+			if( $style_urls[$url] == $crawler_styles_url ) {
+				return;
+			}
+		}
+
+		$style_urls[$url] = $crawler_styles_url;
+		update_option( 'osd_style_urls', $style_urls );
 	}
 
 	function make_base_url( $gender, $pool, $season ) {
@@ -59,12 +72,18 @@ class OSD_Generate_Urls {
 
 		return $url;
 	}
-}
 
-function dis_wp_loaded() {
-	new OSD_Generate_Urls;
-}
-#add_action( 'wp_loaded', 'dis_wp_loaded' );
+	function cron_time() {
+		static $crontime = 0;
 
+		if( $crontime < 1 ) {
+			$crontime = time();
+		} else {
+			$crontime += 5 * MINUTE_IN_SECONDS;
+		}
+
+		return $crontime;
+	}
+}
 			
 			
