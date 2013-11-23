@@ -7,9 +7,11 @@ Author: Patrick Hesselberg
 */
 
 class OSD_Generate_Urls {
+	const BASE = 'http://www.swimrankings.net/index.php?page=rankingDetail&rankingClubId=42463339';
 
 	function __construct() {
 		require_once 'class-osd-crawler.php';
+		require_once 'class-osd-url-crawler.php';
 		require_once 'simple_html_dom.php';
 	}
 
@@ -37,10 +39,8 @@ class OSD_Generate_Urls {
 		$style_urls = get_option( 'osd_style_urls' );
 		$new_style_urls = array();
 
-		$crawler = new OSD_Style_Crawler;
-
 		foreach( $base_urls as $url ) {
-			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_style_url', array( $url ) );
+			wp_schedule_single_event( $this->cron_time( 5 ), 'osd_crawler_style_url', array( $url ) );
 		}
 	}
 
@@ -73,13 +73,44 @@ class OSD_Generate_Urls {
 		return $url;
 	}
 
-	function cron_time() {
+	function make_urls() {
+		$style_urls = get_option( 'osd_style_urls' );
+		$new_urls = array();
+
+		foreach( $style_urls as $base => $urls ) {
+			wp_schedule_single_event( $this->cron_time( 15 ), 'osd_crawler_url', array( $base, $urls ) );
+		}
+	}
+
+	function make_url( $base, $urls ) {
+		$style_urls = get_option( 'osd_style_urls' );
+		$osd_urls = get_option( 'osd_urls' );
+		$crawler_urls = $osd_urls;
+
+		foreach( $urls as $url ) {
+			$crawler = new OSD_Url_Crawler;
+
+			$crawler->set_url( $url );
+			$crawler->request();
+			$crawler_urls[$base][$url] = $crawler->get_urls();
+		}
+
+		if( array_key_exists( $base, $osd_urls ) ) {
+			if( $osd_urls[$base] == $crawler_urls[$base] ) {
+				return;
+			}
+		}
+
+		update_option( 'osd_urls', $crawler_urls );
+	}
+
+	function cron_time( $minutes ) {
 		static $crontime = 0;
 
 		if( $crontime < 1 ) {
 			$crontime = time();
 		} else {
-			$crontime += 5 * MINUTE_IN_SECONDS;
+			$crontime += $minutes * MINUTE_IN_SECONDS;
 		}
 
 		return $crontime;
