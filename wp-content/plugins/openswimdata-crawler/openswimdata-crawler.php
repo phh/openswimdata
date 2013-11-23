@@ -32,13 +32,16 @@ class OSD_Crawler_Plugin {
 	function deactivate() {
 		wp_clear_scheduled_hook( 'osd_crawler_base_urls' );
 		wp_clear_scheduled_hook( 'osd_crawler_style_urls' );
+		wp_clear_scheduled_hook( 'osd_crawler_url' );
 		$this->wp_unschedule_hook( 'osd_crawler_style_url' );
+		$this->wp_unschedule_hook( 'osd_crawler_url' );
 	}
 
 	function cron() {
 		add_action( 'osd_crawler_base_urls', array( &$this, 'osd_crawler_base_urls' ) );
 		add_action( 'osd_crawler_style_urls', array( &$this, 'osd_crawler_style_urls' ) );
-		add_action( 'osd_crawler_style_url', array( &$this, 'osd_crawler_style_url' ) );
+		add_action( 'osd_crawler_urls', array( &$this, 'osd_crawler_urls' ) );
+		add_action( 'osd_crawler_url', array( &$this, 'osd_crawler_url' ), 10, 2 );
 	}
 
 	/**
@@ -64,6 +67,12 @@ class OSD_Crawler_Plugin {
 		}
 	}
 
+	function make_urls_cron() {
+		if ( ! wp_next_scheduled( 'osd_crawler_urls' ) ) {
+			wp_schedule_event( time(), 'weekly', 'osd_crawler_urls' );
+		}
+	}
+
 	function osd_crawler_base_urls() {
 		$crawler = new OSD_Generate_Urls;
 		$crawler->make_base_urls();
@@ -74,11 +83,23 @@ class OSD_Crawler_Plugin {
 	function osd_crawler_style_urls() {
 		$crawler = new OSD_Generate_Urls;
 		$crawler->make_style_urls();
+
+		$this->make_urls_cron();
 	}
 
 	function osd_crawler_style_url( $url ) {
 		$crawler = new OSD_Generate_Urls;
 		$crawler->make_style_url( $url );
+	}
+
+	function osd_crawler_urls() {
+		$crawler = new OSD_Generate_Urls;
+		$crawler->make_urls();
+	}
+
+	function osd_crawler_url( $base, $urls ) {
+		$crawler = new OSD_Generate_Urls;
+		$crawler->make_url( $base, $urls );
 	}
 }
 
