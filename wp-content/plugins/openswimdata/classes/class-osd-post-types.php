@@ -6,7 +6,7 @@
  * @subpackage OpenSwimData
  */ 
 class OSD_Post_Types {
-	protected $_post_types = array( 'swimmer', 'result', 'meeting' );
+	protected $_post_types = array( 'swimmer', 'result', 'meeting', 'tmp' );
 
 	function __construct() {
 		$this->register_post_types();
@@ -109,6 +109,36 @@ class OSD_Post_Types {
 		);
 
 		register_post_type( 'meeting', $args );
+	}
+
+	function post_type_tmp() {
+		$labels = array(
+			'name' => _osd__( 'Tmp' ),
+			'singular_name' => _osd__( 'Tmp' ),
+			'add_new' => _osd_x( 'Add New', 'Tmp' ),
+			'add_new_item' => _osd__( 'Add New Tmp' ),
+			'edit_item' => _osd__( 'Edit Tmp' ),
+			'new_item' => _osd__( 'New Tmp' ),
+			'view_item' => _osd__( 'View Tmp' ),
+			'search_items' => _osd__( 'Search Tmp' ),
+			'not_found' => _osd__( 'No tmp found.' ),
+			'not_found_in_trash' => _osd__( 'No tmp found in Trash.' ),
+			'all_items' => _osd__( 'All Tmp' ),
+			'menu_name' => _osd__( 'Tmp' ),
+		);
+
+		$args = array(
+			'labels' => $labels,
+			'description' => '',
+			'public' => true,
+			'menu_icon' => '',
+			'hierarchical' => false,
+			'supports' => array( 'title' ),
+			'taxonomies' => array(),
+			'has_archive' => true
+		);
+
+		register_post_type( 'tmp', $args );
 	}
 }
 
