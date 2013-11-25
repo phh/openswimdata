@@ -115,6 +115,30 @@ class OSD_Generate_Urls {
 
 		return $crontime;
 	}
+
+	function save_urls() {
+		$osd_urls = get_option( 'osd_urls' );
+		$html = array();
+
+		foreach( $osd_urls as $base => $style_urls ) {
+			foreach( $style_urls as $urls ) {
+				$last_url = end( $urls );
+
+				wp_schedule_single_event( $this->cron_time( 2 ), 'osd_save_url', array( $base, $urls, $last_url ) );
+			}
+		}
+	}
+
+	function save_url( $base, $urls, $last_url ) {
+		$crawler = new OSD_Url_Crawler;
+		$crawler->set_last_url( $last_url );
+
+		foreach( $urls as $url ) {
+			$crawler->set_url( $url, false );
+			$crawler->request();
+			$crawler->save_html( 'table.rankingList' );
+		}
+	}
 }
 			
 			
