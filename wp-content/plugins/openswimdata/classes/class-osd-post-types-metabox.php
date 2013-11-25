@@ -17,6 +17,7 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 		new OSD_Generate_Metabox( $this->metabox_swimmer_info(), $this->metabox_swimmer_options() );
 		new OSD_Generate_Metabox( $this->metabox_result_info(), $this->metabox_result_options() );
 		new OSD_Generate_Metabox( $this->metabox_meeting_info(), $this->metabox_meeting_options() );
+		new OSD_Generate_Metabox( $this->metabox_tmp_info(), $this->metabox_tmp_options() );
 	}
 
 
@@ -47,6 +48,16 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 			'box_name' => 'meeting_info',
 			'title' => _osd__( 'Info' ),
 			'post_types' => array( 'meeting' ),
+			'context' => 'normal',
+			'priority' => 'high'
+		);
+	}
+
+	function metabox_tmp_info() {
+		return array(
+			'box_name' => 'tmp_data_box',
+			'title' => _osd__( 'Data' ),
+			'post_types' => array( 'tmp' ),
 			'context' => 'normal',
 			'priority' => 'high'
 		);
@@ -111,6 +122,26 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 				'label' => _osd__( 'Swimrankings meet ID' ),
 				'name' => 'sr_id',
 				'desc' => _osd__( 'Info for internal use only. This is the current meet id from swimrankings.' )
+			)
+		);
+	}
+
+	function metabox_tmp_options() {
+		return array(
+			array(
+				'type' => 'text',
+				'label' => _osd__( 'Base' ),
+				'name' => 'tmp_base'
+			),
+			array(
+				'type' => 'textarea',
+				'label' => _osd__( 'Data' ),
+				'name' => 'tmp_data'
+			),
+			array(
+				'type' => 'text',
+				'label' => _osd__( 'Skip how many' ),
+				'name' => 'tmp_skip'
 			)
 		);
 	}
