@@ -134,14 +134,19 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 				'name' => 'tmp_base'
 			),
 			array(
-				'type' => 'textarea',
-				'label' => _osd__( 'Data' ),
-				'name' => 'tmp_data'
+				'type' => 'text',
+				'label' => _osd__( 'Style' ),
+				'name' => 'tmp_style'
 			),
 			array(
 				'type' => 'text',
-				'label' => _osd__( 'Skip how many' ),
-				'name' => 'tmp_skip'
+				'label' => _osd__( 'Distance' ),
+				'name' => 'tmp_distance'
+			),
+			array(
+				'type' => 'textarea',
+				'label' => _osd__( 'Data' ),
+				'name' => 'tmp_data'
 			)
 		);
 	}
