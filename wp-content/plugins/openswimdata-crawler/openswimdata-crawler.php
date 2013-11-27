@@ -8,7 +8,7 @@ Author: Patrick Hesselberg
 
 class OSD_Crawler_Plugin {
 	function __construct() {
-		require plugin_dir_path( __FILE__ ) . 'lib/class-osd-generate-urls.php';
+		require plugin_dir_path( __FILE__ ) . 'lib/class-osd-crawler.php';
 
 		$this->register_plugin_hooks();
 		$this->cron();
@@ -80,43 +80,43 @@ class OSD_Crawler_Plugin {
 	}
 
 	function osd_crawler_base_urls() {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->make_base_urls();
 
 		$this->make_style_urls_cron();
 	}
 
 	function osd_crawler_style_urls() {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->make_style_urls();
 
 		$this->make_urls_cron();
 	}
 
 	function osd_crawler_style_url( $url ) {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->make_style_url( $url );
 	}
 
 	function osd_crawler_urls() {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->make_urls();
 
 		$this->save_urls_cron();
 	}
 
 	function osd_crawler_url( $base, $urls ) {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->make_url( $base, $urls );
 	}
 
 	function osd_save_urls() {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->save_urls();
 	}
 
 	function osd_save_url( $base, $urls ) {
-		$crawler = new OSD_Generate_Urls;
+		$crawler = new OSD_Crawler;
 		$crawler->save_url( $base, $urls );
 	}
 }
