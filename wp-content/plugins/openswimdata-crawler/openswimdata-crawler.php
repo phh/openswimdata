@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: OpenSwimData Crawler
-Description: OpenSwimData part: Crawler.
+Description: OpenSwimData part: Crawler. Make the urls, crawl them and save it into to later get parsed.
 Version: 1.0
 Author: Patrick Hesselberg
 */
