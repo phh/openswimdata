@@ -40,13 +40,13 @@ class OSD_Generate_Urls {
 		$new_style_urls = array();
 
 		foreach( $base_urls as $url ) {
-			wp_schedule_single_event( $this->cron_time( 5 ), 'osd_crawler_style_url', array( $url ) );
+			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_style_url', array( $url ) );
 		}
 	}
 
 	function make_style_url( $url ) {
 		$style_urls = get_option( 'osd_style_urls' );
-		$crawler = new OSD_Style_Crawler;
+		$crawler = new OSD_Url_Crawler;
 
 		$crawler->set_url( $url );
 		$crawler->request();
@@ -58,6 +58,7 @@ class OSD_Generate_Urls {
 			}
 		}
 
+		//TODO Check if the url is already in there. &gender=1&course=SCM&season=2007 will return 2x200m freestyle.
 		$style_urls[$url] = $crawler_styles_url;
 		update_option( 'osd_style_urls', $style_urls );
 	}
@@ -78,7 +79,7 @@ class OSD_Generate_Urls {
 		$new_urls = array();
 
 		foreach( $style_urls as $base => $urls ) {
-			wp_schedule_single_event( $this->cron_time( 15 ), 'osd_crawler_url', array( $base, $urls ) );
+			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_url', array( $base, $urls ) );
 		}
 	}
 
@@ -90,9 +91,9 @@ class OSD_Generate_Urls {
 		foreach( $urls as $url ) {
 			$crawler = new OSD_Url_Crawler;
 
-			$crawler->set_url( $url );
+			$crawler->set_url( $crawler::STYLE_BASE . $url->href, false );
 			$crawler->request();
-			$crawler_urls[$base][$url] = $crawler->get_urls();
+			$crawler_urls[$base][$url->href] = $crawler->get_urls();
 		}
 
 		if( array_key_exists( $base, $osd_urls ) ) {
@@ -104,41 +105,53 @@ class OSD_Generate_Urls {
 		update_option( 'osd_urls', $crawler_urls );
 	}
 
-	function cron_time( $minutes ) {
+	function cron_time() {
 		static $crontime = 0;
 
 		if( $crontime < 1 ) {
 			$crontime = time();
 		} else {
-			$crontime += $minutes * MINUTE_IN_SECONDS;
+			$crontime += 2 * MINUTE_IN_SECONDS;
 		}
 
 		return $crontime;
 	}
 
 	function save_urls() {
-		$osd_urls = get_option( 'osd_urls' );
+		$osd_urls = get_option( 'osd_style_urls' );
 		$html = array();
-
 		foreach( $osd_urls as $base => $style_urls ) {
-			foreach( $style_urls as $urls ) {
-				$last_url = end( $urls );
-
-				wp_schedule_single_event( $this->cron_time( 2 ), 'osd_save_url', array( $base, $urls, $last_url ) );
+			foreach( $style_urls as $url ) {
+				wp_schedule_single_event( $this->cron_time(), 'osd_save_url', array( $base, $url ) );
 			}
 		}
 	}
 
-	function save_url( $base, $urls, $last_url ) {
+	function save_url( $base, $url ) {
 		$crawler = new OSD_Url_Crawler;
-		$crawler->set_last_url( $last_url );
+		$crawler->set_base( $crawler::STYLE_BASE );
+		$crawler->set_url( $url->href );
+		$crawler->request();
+		$crawler->get_urls();
 
-		foreach( $urls as $url ) {
-			$crawler->set_url( $url, false );
+		$postarr = array(
+			'post_title' => $base . $url->style . $url->distance,
+			'post_type' => 'tmp',
+			'post_status' => 'draft',
+			'post_author' => 1
+		);
+		$tmp = wp_insert_post( $postarr );
+
+		foreach( $crawler->urls as $crawler_url ) {
+			$crawler->set_url( $crawler_url, false );
 			$crawler->request();
-			$crawler->save_html( 'table.rankingList' );
+			$crawler->append_html( 'table.rankingList tr[class^=rankingList]' );
 		}
+
+		add_post_meta( $tmp, 'tmp_base', $base );
+		add_post_meta( $tmp, 'tmp_style', $url->style );
+		add_post_meta( $tmp, 'tmp_distance', $url->distance );
+		add_post_meta( $tmp, 'tmp_data', $crawler->get_html() );
 	}
 }
-			
-			
+
