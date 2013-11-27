@@ -4,25 +4,33 @@ class OSD_Url_Crawler {
 	var $url;
 	var $html;
 	var $base;
-	var $last_url;
 	var $number_count = 25;
+	var $get_html = array();
+	var $urls = array();
 
-	const BASE = 'http://www.swimrankings.net/index.php?page=rankingDetail&language=us&rankingClubId=';
+	const BASE =       'http://www.swimrankings.net/index.php?page=rankingDetail&clubId=95&language=us';
+	const STYLE_BASE = 'http://www.swimrankings.net/index.php?page=rankingDetail&language=us&rankingClubId=';
 
-	function set_url( $url, $base = true ) {
-		if( $base ) {
+	function set_url( $url ) {
+		if( !empty( $this->base ) ) {
+			$url = $this->base . $url;
+		} else {
 			$url = $this::BASE . $url;
 		}
 
 		$this->url = $url;
 	}
 
-	function set_base( $base ) {
+	function set_base( $base = '' ) {
 		$this->base = $base;
 	}
 
-	function set_last_url( $last_url ) {
-		$this->last_url = $last_url;
+	function get_html() {
+		if( !empty( $this->get_html ) ) {
+			return $this->get_html;
+		}
+
+		return false;
 	}
 
 	function request() {
@@ -41,6 +49,21 @@ class OSD_Url_Crawler {
 		$this->html = $request;
 	}
 
+	function get_styles_urls() {
+		$urls = array();
+
+		foreach( $this->html->find( 'table.rankingList td[class=swimstyle] a' ) as $style ) {
+			$url = new stdClass;
+			$url->href = $this->get_ranking_id( $style->href );
+			$url->distance = $this->get_distance( $style->innertext );
+			$url->style = $this->get_style( $style->innertext );
+
+			$urls[] = $url;
+		}
+
+		return $urls;
+	}
+
 	function get_urls() {
 		$urls = array();
 
@@ -50,7 +73,27 @@ class OSD_Url_Crawler {
 			$urls[] = $this->url . '&firstPlace=' . $i;
 		}
 
-		return $urls;
+		$this->urls = $urls;
+	}
+
+	function get_ranking_id( $link ) {
+		$link = htmlspecialchars_decode( $link );
+		parse_str( $link, $args );
+		$link = $args['rankingClubId'];
+
+		return $link;
+	}
+
+	function get_distance( $swimstyle ) {
+		return intval( $swimstyle );
+	}
+
+	function get_style( $swimstyle ) {
+		$swimstyle = explode( ' ', $swimstyle );
+		array_shift( $swimstyle );
+		$distance = implode( ' ', $swimstyle );
+
+		return $distance;
 	}
 
 	function get_number_elements() {
@@ -60,39 +103,13 @@ class OSD_Url_Crawler {
 		return $elements;
 	}
 
-	function get_firstplace() {
-		parse_str( $this->url, $parsed );
+	function append_html( $element ) {
+		$elements = array();
 
-		return $parsed['firstPlace'];
-	}
-
-	function get_number_skip() {
-		$url_firstplace = $this->get_firstplace();
-		$real_firstplace = $this->html->find( 'input[name=firstPlace]', 0 )->attr['value'];
-		$skip = $url_firstplace - $real_firstplace;
-
-		return $skip;
-	}
-
-	function save_html( $element ) {
-		$html = $this->html->find( $element, -1 )->outertext;
-
-		if( empty( $html ) ) {
-			return false;
-		}
-		$postarr = array(
-			'post_title' => $this->url,
-			'post_type' => 'tmp',
-			'post_status' => 'draft',
-			'post_author' => 1
-		);
-		$tmp = wp_insert_post( $postarr );
-
-		add_post_meta( $tmp, 'tmp_data', $html );
-		add_post_meta( $tmp, 'tmp_base', $this->base );
-
-		if( $this->last_url == $this->url ) {
-			add_post_meta( $tmp, 'tmp_skip', $this->get_number_skip() );
+		foreach( $this->html->find( $element ) as $tr ) {
+			if( !in_array( $tr->innertext, $elements ) ) {
+				$this->get_html[] = $tr->innertext;
+			}
 		}
 
 		return true;
