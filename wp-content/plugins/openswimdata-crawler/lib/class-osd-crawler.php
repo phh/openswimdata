@@ -3,7 +3,7 @@
 class OSD_Crawler {
 
 	function __construct() {
-		require_once 'class-osd-crawler.php';
+		require_once 'class-osd-url-crawler.php';
 		require_once 'simple_html_dom.php';
 	}
 
