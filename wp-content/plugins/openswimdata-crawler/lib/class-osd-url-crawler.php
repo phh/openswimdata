@@ -104,10 +104,8 @@ class OSD_Url_Crawler {
 	}
 
 	function append_html( $element ) {
-		$elements = array();
-
 		foreach( $this->html->find( $element ) as $tr ) {
-			if( !in_array( $tr->innertext, $elements ) ) {
+			if( !in_array( $tr->innertext, $this->get_html ) ) {
 				$this->get_html[] = $tr->innertext;
 			}
 		}
