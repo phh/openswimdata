@@ -39,11 +39,10 @@ class OSD_Url_Crawler {
 		}
 
 		// swimrankings.net write bad html so we gotta make it prettier...
-		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
-		$config = HTMLPurifier_Config::createDefault();
-		$config->set('HTML.Trusted', true);
-		$purifier = new HTMLPurifier( $config );
-		$clean_html = $purifier->purify( file_get_contents( $this->url ) );
+		$remote = wp_remote_get( $this->url );
+		$dom = new DOMDocument;
+		@$dom->loadHTML( $remote['body'] );
+		$clean_html = $dom->saveHTML();
 
 		$request = str_get_html( $clean_html );
 		$this->html = $request;
@@ -58,7 +57,9 @@ class OSD_Url_Crawler {
 			$url->distance = $this->get_distance( $style->innertext );
 			$url->style = $this->get_style( $style->innertext );
 
-			$urls[] = $url;
+			if( !in_array( $url, $urls ) ) {
+				$urls[] = $url;
+			}
 		}
 
 		return $urls;
