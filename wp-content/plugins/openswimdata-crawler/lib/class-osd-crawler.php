@@ -1,10 +1,13 @@
 <?php
 
 class OSD_Crawler {
+	var $style_urls;
 
 	function __construct() {
 		require_once 'class-osd-url-crawler.php';
 		require_once 'simple_html_dom.php';
+
+		$this->style_urls = get_option( 'osd_style_urls' );
 	}
 
 	function make_base_urls() {
@@ -32,27 +35,25 @@ class OSD_Crawler {
 		$new_style_urls = array();
 
 		foreach( $base_urls as $url ) {
-			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_style_url', array( $url ) );
+			$this->make_style_url( $url );
 		}
+
+		update_option( 'osd_style_urls', $this->style_urls );
 	}
 
 	function make_style_url( $url ) {
-		$style_urls = get_option( 'osd_style_urls' );
 		$crawler = new OSD_Url_Crawler;
-
 		$crawler->set_url( $url );
 		$crawler->request();
 		$crawler_styles_url = $crawler->get_styles_urls();
 
-		if( array_key_exists( $url, $style_urls ) ) {
-			if( $style_urls[$url] == $crawler_styles_url ) {
+		if( array_key_exists( $url, $this->style_urls ) ) {
+			if( $this->style_urls[$url] == $crawler_styles_url ) {
 				return;
 			}
 		}
 
-		//TODO Check if the url is already in there. &gender=1&course=SCM&season=2007 will return 2x200m freestyle.
-		$style_urls[$url] = $crawler_styles_url;
-		update_option( 'osd_style_urls', $style_urls );
+		$this->style_urls[$url] = $crawler_styles_url;
 	}
 
 	function make_base_url( $gender, $pool, $season ) {
@@ -64,37 +65,6 @@ class OSD_Crawler {
 		$url .= OSD_Taxonomies_Metaboxes::get_term_meta( 'season', $season->term_id );
 
 		return $url;
-	}
-
-	function make_urls() {
-		$style_urls = get_option( 'osd_style_urls' );
-		$new_urls = array();
-
-		foreach( $style_urls as $base => $urls ) {
-			wp_schedule_single_event( $this->cron_time(), 'osd_crawler_url', array( $base, $urls ) );
-		}
-	}
-
-	function make_url( $base, $urls ) {
-		$style_urls = get_option( 'osd_style_urls' );
-		$osd_urls = get_option( 'osd_urls' );
-		$crawler_urls = $osd_urls;
-
-		foreach( $urls as $url ) {
-			$crawler = new OSD_Url_Crawler;
-
-			$crawler->set_url( $crawler::STYLE_BASE . $url->href, false );
-			$crawler->request();
-			$crawler_urls[$base][$url->href] = $crawler->get_urls();
-		}
-
-		if( array_key_exists( $base, $osd_urls ) ) {
-			if( $osd_urls[$base] == $crawler_urls[$base] ) {
-				return;
-			}
-		}
-
-		update_option( 'osd_urls', $crawler_urls );
 	}
 
 	function cron_time() {
@@ -135,7 +105,7 @@ class OSD_Crawler {
 		$tmp = wp_insert_post( $postarr );
 
 		foreach( $crawler->urls as $crawler_url ) {
-			$crawler->set_url( $crawler_url, false );
+			$crawler->set_url( $crawler_url );
 			$crawler->request();
 			$crawler->append_html( 'table.rankingList tr[class^=rankingList]' );
 		}
