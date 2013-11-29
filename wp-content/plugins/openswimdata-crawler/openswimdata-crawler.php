@@ -31,17 +31,15 @@ class OSD_Crawler_Plugin {
 	function deactivate() {
 		wp_clear_scheduled_hook( 'osd_crawler_base_urls' );
 		wp_clear_scheduled_hook( 'osd_crawler_style_urls' );
-		wp_clear_scheduled_hook( 'osd_save_urls' );
-		$this->wp_unschedule_hook( 'osd_crawler_style_url' );
-		$this->wp_unschedule_hook( 'osd_save_url' );
+		wp_clear_scheduled_hook( 'osd_crawler_save_urls' );
+		$this->wp_unschedule_hook( 'osd_crawler_save_url' );
 	}
 
 	function cron() {
 		add_action( 'osd_crawler_base_urls', array( &$this, 'osd_crawler_base_urls' ) );
 		add_action( 'osd_crawler_style_urls', array( &$this, 'osd_crawler_style_urls' ) );
-		add_action( 'osd_crawler_style_url', array( &$this, 'osd_crawler_style_url' ) );
-		add_action( 'osd_save_urls', array( &$this, 'osd_save_urls' ) );
-		add_action( 'osd_save_url', array( &$this, 'osd_save_url' ), 10, 2 );
+		add_action( 'osd_crawler_save_urls', array( &$this, 'osd_crawler_save_urls' ) );
+		add_action( 'osd_crawler_save_url', array( &$this, 'osd_crawler_save_url' ), 10, 2 );
 	}
 
 	/**
@@ -67,15 +65,9 @@ class OSD_Crawler_Plugin {
 		}
 	}
 
-	function make_urls_cron() {
-		if ( ! wp_next_scheduled( 'osd_crawler_urls' ) ) {
-			wp_schedule_event( time(), 'weekly', 'osd_crawler_urls' );
-		}
-	}
-
 	function save_urls_cron() {
-		if ( ! wp_next_scheduled( 'osd_save_urls' ) ) {
-			wp_schedule_event( time(), 'weekly', 'osd_save_urls' );
+		if ( ! wp_next_scheduled( 'osd_crawler_save_urls' ) ) {
+			wp_schedule_event( time(), 'weekly', 'osd_crawler_save_urls' );
 		}
 	}
 
@@ -90,34 +82,17 @@ class OSD_Crawler_Plugin {
 		$crawler = new OSD_Crawler;
 		$crawler->make_style_urls();
 
-		$this->make_urls_cron();
-	}
-
-	function osd_crawler_style_url( $url ) {
-		$crawler = new OSD_Crawler;
-		$crawler->make_style_url( $url );
-	}
-
-	function osd_crawler_urls() {
-		$crawler = new OSD_Crawler;
-		$crawler->make_urls();
-
 		$this->save_urls_cron();
 	}
 
-	function osd_crawler_url( $base, $urls ) {
-		$crawler = new OSD_Crawler;
-		$crawler->make_url( $base, $urls );
-	}
-
-	function osd_save_urls() {
+	function osd_crawler_save_urls() {
 		$crawler = new OSD_Crawler;
 		$crawler->save_urls();
 	}
 
-	function osd_save_url( $base, $urls ) {
+	function osd_crawler_save_url( $base, $url ) {
 		$crawler = new OSD_Crawler;
-		$crawler->save_url( $base, $urls );
+		$crawler->save_url( $base, $url );
 	}
 }
 
