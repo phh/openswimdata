@@ -12,6 +12,9 @@ class OSD_Crawler_Plugin {
 
 		$this->register_plugin_hooks();
 		$this->cron();
+
+		#krumo(get_option('osd_style_urls'));
+		#die();
 	}
 
 	function register_plugin_hooks() {
@@ -65,7 +68,7 @@ class OSD_Crawler_Plugin {
 		}
 	}
 
-	function save_urls_cron() {
+	function make_save_urls_cron() {
 		if ( ! wp_next_scheduled( 'osd_crawler_save_urls' ) ) {
 			wp_schedule_event( time(), 'weekly', 'osd_crawler_save_urls' );
 		}
@@ -82,7 +85,7 @@ class OSD_Crawler_Plugin {
 		$crawler = new OSD_Crawler;
 		$crawler->make_style_urls();
 
-		$this->save_urls_cron();
+		$this->make_save_urls_cron();
 	}
 
 	function osd_crawler_save_urls() {
