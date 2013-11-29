@@ -51,7 +51,7 @@ class OSD_Parser {
 			$this->set_row_terms();
 			#$this->save_swimmer();
 			#$this->save_result();
-			#$this->save_event();
+			#$this->save_meeting();
 			#$this->save_p2p();
 		}
 	}
@@ -103,6 +103,7 @@ class OSD_Parser {
 		$this->set_national( $row3 );
 		$this->set_club( $row4 );
 		$this->set_time( $row5 );
+		$this->set_split_times( $row5 );
 		$this->set_result_id( $row5 );
 		$this->set_rank_eu( $row6 );
 		$this->set_rank_nat( $row7 );
@@ -195,6 +196,7 @@ class OSD_Parser {
 
 		$result_id = wp_insert_post($postarr);
 		add_post_meta( $result_id, 'time', $this->result->time );
+		add_post_meta( $result_id, 'splits', $this->result->splits );
 		add_post_meta( $result_id, 'rank_nat', $this->result->rank_nat );
 		add_post_meta( $result_id, 'rank_eu', $this->result->rank_eu );
 		add_post_meta( $result_id, 'sr_id', $this->result->result_id );
@@ -202,7 +204,7 @@ class OSD_Parser {
 		$this->result->post_id = $result_id;
 	}
 
-	function save_event() {
+	function save_meeting() {
 		$postarr = array(
 			'post_title' => $this->meeting_title(),
 			'post_type' => 'meeting',
@@ -283,6 +285,30 @@ class OSD_Parser {
 
 	function set_time( $td ) {
 		$this->result->time = $td->innertext;
+	}
+
+	function set_split_times( $td ) {
+		$splits = array();
+
+		if( !empty( $td->attr['onmouseover'] ) ) {
+			$mouseover = htmlspecialchars_decode( $td->attr['onmouseover'] );
+			$html = str_get_html( $mouseover );
+
+			foreach( $html->find( 'tr') as $tr ) {
+				foreach( $tr->find( 'td[class!=splitsep]' ) as $split ) {
+					if( $split->attr['class'] == 'split0' ) {
+						$current = intval( $split->innertext );
+						$splits[$current] = array();
+					} elseif( $split->attr['class'] == 'split1' ) {
+						$splits[$current]['current'] = $split->innertext;
+					} else {
+						$splits[$current]['split'] = $split->innertext;
+					}
+				}
+			}
+		}
+
+		$this->result->splits = $splits;
 	}
 
 	function set_result_id( $td ) {
