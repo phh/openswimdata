@@ -84,7 +84,7 @@ class OSD_Crawler {
 		$html = array();
 		foreach( $osd_urls as $base => $style_urls ) {
 			foreach( $style_urls as $url ) {
-				wp_schedule_single_event( $this->cron_time(), 'osd_save_url', array( $base, $url ) );
+				wp_schedule_single_event( $this->cron_time(), 'osd_crawler_save_url', array( $base, $url ) );
 			}
 		}
 	}
