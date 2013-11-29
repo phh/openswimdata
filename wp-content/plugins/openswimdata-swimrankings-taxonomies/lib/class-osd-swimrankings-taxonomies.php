@@ -23,11 +23,10 @@ class OSD_Swimrankings_Taxonomies {
 			die( 'You need the simple html dom for this to work' );
 
 		// swimrankings.net write bad html so we gotta make it prettier...
-		require_once 'htmlpurifier/library/HTMLPurifier.auto.php';
-		$config = HTMLPurifier_Config::createDefault();
-		$config->set('HTML.Trusted', true);
-		$purifier = new HTMLPurifier( $config );
-		$clean_html = $purifier->purify( file_get_contents( $this::RANK_DEN ) );
+		$remote = wp_remote_get( $this::RANK_DEN );
+		$dom = new DOMDocument;
+		@$dom->loadHTML( $remote['body'] );
+		$clean_html = $dom->saveHTML();
 
 		$request = str_get_html( $clean_html );
 		$this->html = $request;
@@ -38,12 +37,12 @@ class OSD_Swimrankings_Taxonomies {
 			$terms_args = array( 'hide_empty' => false );
 			$terms = get_terms( $taxonomy, $terms_args );
 			$term_meta = array();
-		
+
 			foreach( $terms as $k => $term ) {
 				$terms[$k]->$taxonomy = OSD_Taxonomies_Metaboxes::get_term_meta( $taxonomy, $term->term_id );
 				$term_meta[] = $terms[$k]->$taxonomy;
 			}
-		
+
 			foreach( $this->get_terms( $taxonomy ) as $key => $value ) {
 				if( !in_array( $key, $term_meta ) ) {
 					$new_term = wp_insert_term( $value, $taxonomy );
