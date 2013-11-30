@@ -300,7 +300,7 @@ class OSD_Parser {
 						$current = intval( $split->innertext );
 						$splits[$current] = array();
 					} elseif( $split->attr['class'] == 'split1' ) {
-						$splits[$current]['current'] = $split->innertext;
+						$splits[$current]['turn'] = $split->innertext;
 					} else {
 						$splits[$current]['split'] = $split->innertext;
 					}
