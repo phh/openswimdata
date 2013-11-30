@@ -12,9 +12,6 @@ class OSD_Crawler_Plugin {
 
 		$this->register_plugin_hooks();
 		$this->cron();
-
-		#krumo(get_option('osd_style_urls'));
-		#die();
 	}
 
 	function register_plugin_hooks() {
