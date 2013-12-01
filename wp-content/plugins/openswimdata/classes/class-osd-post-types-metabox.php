@@ -142,11 +142,6 @@ class OSD_Post_Types_Metabox extends OSD_Post_Types {
 				'type' => 'text',
 				'label' => _osd__( 'Distance' ),
 				'name' => 'tmp_distance'
-			),
-			array(
-				'type' => 'textarea',
-				'label' => _osd__( 'Data' ),
-				'name' => 'tmp_data'
 			)
 		);
 	}
