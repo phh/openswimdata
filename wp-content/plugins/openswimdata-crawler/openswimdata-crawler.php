@@ -52,7 +52,10 @@ class OSD_Crawler_Plugin {
 			return;
 		}
 
-		foreach($crons as $timestamp => $args) {
+		foreach( $crons as $timestamp => $args ) {
+			if( empty( $crons[$timestamp] ) ) {
+				unset( $crons[$timestamp] );
+			}
 			unset( $crons[$timestamp][$hook] );
 		}
 
