@@ -289,6 +289,7 @@ class OSD_Parser {
 	function save_meeting() {
 		static $count = 0;
 		$count++;
+
 		if( !array_key_exists( $this->meeting->meetid, $this->posts['meeting'] ) ) {
 			// If it's not there, create a new post
 			$postarr = array(
@@ -445,11 +446,11 @@ class OSD_Parser {
 	}
 
 	function set_city( $td ) {
-		$this->meeting->city = html_entity_decode( $td->innertext );
+		$this->meeting->city = html_entity_decode( str_replace( '&nbsp;', ' ', $td->innertext ) );
 	}
 
 	function set_event( $td ) {
-		$this->meeting->event = html_entity_decode( $td->title );
+		$this->meeting->event = html_entity_decode( str_replace( '&nbsp;', ' ', $td->title ) );
 	}
 
 	function set_meet_id( $td ) {
