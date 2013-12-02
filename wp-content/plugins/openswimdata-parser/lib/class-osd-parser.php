@@ -21,10 +21,11 @@ class OSD_Parser {
 		$posts = get_posts( array(
 			'post_type' => 'tmp',
 			'post_status' => 'draft',
-			'posts_per_page' => -1
+			'posts_per_page' => -1,
+			'order' => 'ASC'
 		) );
 
-		foreach( $tmps as $tmp ) {
+		foreach( $posts as $tmp ) {
 			wp_schedule_single_event( OSD_Crawler::cron_time(), 'osd_parser_url', array( $tmp->ID ) );
 		}
 	}
