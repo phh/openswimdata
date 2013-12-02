@@ -40,7 +40,7 @@ class OSD_Parser_Plugin {
 			$tmps = get_posts( array( 'post_type' => 'tmp', 'post_status' => 'draft', 'numberposts' => 1 ) );
 
 			if( !empty( $tmps ) ) {
-				wp_schedule_event( time(), 'weekly', 'osd_parser_urls' );
+				wp_schedule_event( strtotime( 'friday' ), 'weekly', 'osd_parser_urls' );
 			}
 		}
 	}
