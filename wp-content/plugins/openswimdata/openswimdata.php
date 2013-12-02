@@ -2,7 +2,7 @@
 /*
 Plugin Name: OpenSwimData
 Description: OpenSwimData will crawl, parse and deliver swimming statistics.
-Version: 0.1
+Version: 1.0
 Author: Patrick Hesselberg
 */
 
