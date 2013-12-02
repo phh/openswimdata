@@ -73,7 +73,7 @@ class OSD_Crawler {
 		if( $crontime < 1 ) {
 			$crontime = time();
 		} else {
-			$crontime += 2 * MINUTE_IN_SECONDS;
+			$crontime += 5 * MINUTE_IN_SECONDS;
 		}
 
 		return $crontime;
