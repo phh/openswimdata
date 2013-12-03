@@ -13,8 +13,13 @@ include_once( dirname( __FILE__ ) . '/lib/class-osd-api-meetings.php' );
 function osd_api() {
 	global $wp_json_server;
 
-	$swimmers = new OSD_API_Swimmers($wp_json_server);
+	$swimmers = new OSD_API_Swimmers( $wp_json_server );
+	$results = new OSD_API_Results( $wp_json_server );
+	$meetings = new OSD_API_Meetings( $wp_json_server );
+
 	add_filter( 'json_endpoints', array( $swimmers, 'register_routes' ) );
+	add_filter( 'json_endpoints', array( $results, 'register_routes' ) );
+	add_filter( 'json_endpoints', array( $meetings, 'register_routes' ) );
 }
 add_action( 'wp_json_server_before_serve', 'osd_api' );
 
