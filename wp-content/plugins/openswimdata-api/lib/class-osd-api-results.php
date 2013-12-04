@@ -27,7 +27,6 @@ class OSD_API_Results extends OSD_API {
 	}
 
 	function json_prepare_meta_splits( $metas ) {
-		$this->test_data();
 		if( array_key_exists( 'splits', $metas ) ) {
 			foreach( $metas['splits'] as $key => $split ) {
 				$metas['splits'][$key] = maybe_unserialize( $split );
