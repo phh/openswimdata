@@ -26,8 +26,6 @@ class OSD_API_Swimmers extends OSD_API {
 
 	function json_prepare_meta_club_data( $metas ) {
 		if( array_key_exists( 'club_data', $metas ) ) {
-			$this->test_data();
-
 			foreach( $metas['club_data'] as $key => $clubs ) {
 				$clubs = maybe_unserialize( $clubs );
 
