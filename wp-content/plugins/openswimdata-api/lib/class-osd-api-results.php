@@ -8,6 +8,7 @@ class OSD_API_Results extends OSD_API {
 		parent::__construct( $server );
 
 		add_filter( 'osd_api_' . $this->type . '_links', array( &$this, 'osd_api_result_link' ), 10, 2 );
+		add_filter( 'json_prepare_meta', array( &$this, 'json_prepare_meta_splits' ) );
 	}
 
 	function register_routes( $routes ) {
@@ -23,5 +24,16 @@ class OSD_API_Results extends OSD_API {
 		$links['meeting_results'] = $this->get_related( 'meetings_results', $post_id, 'meetings/results/' );
 
 		return $links;
+	}
+
+	function json_prepare_meta_splits( $metas ) {
+		$this->test_data();
+		if( array_key_exists( 'splits', $metas ) ) {
+			foreach( $metas['splits'] as $key => $split ) {
+				$metas['splits'][$key] = maybe_unserialize( $split );
+			}
+		}
+
+		return $metas;
 	}
 }
