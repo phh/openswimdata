@@ -1,6 +1,6 @@
 <?php
 
-class OSD_API_Meetings extends WP_JSON_CustomPostType {
+class OSD_API_Meetings extends OSD_API {
 	protected $base = '/meetings';
 	protected $type = 'meeting';
 
