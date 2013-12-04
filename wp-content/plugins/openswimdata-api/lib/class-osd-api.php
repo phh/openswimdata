@@ -19,29 +19,20 @@ class OSD_API extends WP_JSON_CustomPostType {
 	}
 
 	function prepare_post( $post, $context ) {
+		$type = $post['post_type'] != $this->type ? $post['post_type'] : $this->type;
+		// So bah and dirty. But it works. Split em up tomorrow..
+		$base = $post['post_type'] != $this->type ? '/' . $post['post_type'] . 's' : false;
 		$_post = array();
 
-		$_post[ $this->type . '_id'] = (int) $post['ID'];
+		$_post[ $type . '_id'] = (int) $post['ID'];
 		$_post['title'] = get_the_title( $post['ID'] );
 		$_post['slug'] = $post['post_name'];
 
 		$_post = array_merge( $_post, $this->prepare_meta( $post['ID'] ) );
 
-		$_post['meta']['links'] = $this->meta_link( $post['ID'] );
+		$_post['meta']['links'] = $this->meta_link( $post['ID'], $base );
 
 		return apply_filters( 'json_prepare_post', $_post, $post, $context );
-
-		$_post['pool'] = $this->term_data( $post['ID'], 'pool' );
-		$_post['distance'] = $this->term_data( $post['ID'], 'distance' );
-		$_post['style'] = $this->term_data( $post['ID'], 'style' );
-		$_post['result'] = $this->post_meta( $post['ID'], 'time' );
-		$_post['club'] = $this->term_data( $post['ID'], 'club' );
-		$_post['date'] = $this->term_data( $post['ID'], 'date' );
-		$_post['year'] = $this->term_data( $post['ID'], 'year' );
-		$_post['season'] = $this->term_data( $post['ID'], 'season' );
-		$_post['national'] = $this->term_data( $post['ID'], 'national' );
-
-		return $_post;
 	}
 
 	function json_prepare_meta_sr_id( $metas ) {
@@ -52,16 +43,25 @@ class OSD_API extends WP_JSON_CustomPostType {
 		return $metas;
 	}
 
-	function json_prepare_meta_featured_image( $metas ) {
-		if( array_key_exists( 'featured_image', $metas ) ) {
-			unset( $metas['featured_image'] );
+	function connected_get_results( $id, $context = 'view', $type = '' ) {
+		$post = parent::getPost( $id, $context = 'view' );
+		$post['results'] = array();
+		$related_posts = $this->get_related_posts( $type, $id );
+
+		foreach( $related_posts as $related ) {
+			$post['results'][] = $this->prepare_related( $related );
 		}
 
-		return $metas;
+		return $post;
 	}
 
-	function base_post( $post_id ) {
+	function prepare_related( $related ) {
+		if( !is_object( $related ) ) {
+			return false;
+		}
 
+		$post = get_post( $related->ID, ARRAY_A );
+		$_post = $this->prepare_post( $post, 'view' );
 
 		return $_post;
 	}
@@ -77,47 +77,34 @@ class OSD_API extends WP_JSON_CustomPostType {
 		return $metas;
 	}
 
-	function term_data( $post_id, $term ) {
-		$terms = wp_get_post_terms( $post_id, $term, array( 'fields' => 'names' ) );
 
-		if( empty( $terms ) ) {
-			return '';
-		}
+	function meta_link( $post_id, $base = false ) {
+		$type = get_post_type( $post_id );
+		$base = $base ? $base : $this->base;
 
-		return current( $terms );
-	}
-
-	function term_id( $post_id, $term ) {
-		$terms = wp_get_post_terms( $post_id, $term, array( 'ids' => 'names' ) );
-
-		if( empty( $terms ) ) {
-			return '';
-		}
-
-		return current( $terms );
-	}
-
-	function post_meta( $post_id, $meta ) {
-		if( empty( $post_id ) ) {
-			return false;
-		}
-
-		if( empty( $meta ) ) {
-			return false;
-		}
-
-		return get_post_meta( $post_id, $meta, true );
-	}
-
-	function meta_link( $post_id ) {
 		$meta_links = array(
-			'self'       => json_url( $this->base . '/' . $post_id ),
-			'collection' => json_url( $this->base )
+			'self'       => json_url( $base . '/' . $post_id ),
+			'collection' => json_url( $base )
 		);
 
 		$meta_links = array_merge( $meta_links, apply_filters( 'osd_api_' . $this->type . '_links', array(), $post_id ) );
 
 		return $meta_links;
+	}
+
+	function get_related_posts( $type, $post_id ) {
+		$connected = get_posts( array(
+			'connected_type' => $type,
+			'connected_items' => $post_id,
+			'nopaging' => true,
+			'suppress_filters' => false
+		) );
+
+		if( empty( $connected ) ) {
+			return array();
+		}
+
+		return $connected;
 	}
 
 	function get_related( $type, $post_id, $base ) {
@@ -142,3 +129,4 @@ class OSD_API extends WP_JSON_CustomPostType {
 		#?filter[post_status]=draft&filter[s]=foo
 	}
 }
+
