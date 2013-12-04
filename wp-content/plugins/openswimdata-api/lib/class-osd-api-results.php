@@ -17,6 +17,10 @@ class OSD_API_Results extends OSD_API {
 		return $routes;
 	}
 
+	function swimmers_results_get_post( $filter = array(), $context = 'view' ) {
+		return parent::getPost( $filter, $context );
+	}
+
 	function osd_api_result_link( $links, $post_id ) {
 		$links['swimmer'] = $this->get_related( 'swimmers_results', $post_id, 'swimmers/' );
 		$links['swimmer_results'] = $this->get_related( 'swimmers_results', $post_id, 'swimmers/results/' );
@@ -36,3 +40,4 @@ class OSD_API_Results extends OSD_API {
 		return $metas;
 	}
 }
+
