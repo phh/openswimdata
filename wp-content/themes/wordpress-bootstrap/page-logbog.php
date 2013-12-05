@@ -7,7 +7,8 @@ query_posts( array(
 	'post_type' => 'post',
 	'posts_per_page' => 50,
 	'order' => 'ASC',
-	'post__not_in' => array( get_the_ID() )
+	'post__not_in' => array( get_the_ID() ),
+	'category_name' => 'logbog'
 ) );
 ?>
 
