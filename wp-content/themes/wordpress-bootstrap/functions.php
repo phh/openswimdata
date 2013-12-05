@@ -422,6 +422,13 @@ add_filter( 'wp_get_attachment_link', 'add_class_attachment_link', 10, 1 );
 
 // Add lead class to first paragraph
 function first_paragraph( $content ){
+	global $post;
+
+	$out = '<h1>';
+	$out .= get_the_title( $post );
+	$out .= '</h1>';
+	return $out . $content;
+
     global $post;
 
     // if we're on the homepage, don't add the lead class to the first paragraph of text
@@ -430,7 +437,7 @@ function first_paragraph( $content ){
     else
         return preg_replace('/<p([^>]+)?>/', '<p$1 class="lead">', $content, 1);
 }
-add_filter( 'the_content', 'first_paragraph' );
+add_filter( 'the_content', 'first_paragraph', 1 );
 
 // Menu output mods
 /* Bootstrap_Walker for Wordpress 
