@@ -272,8 +272,8 @@ class WP_Cron_Control {
 					$flag = 0;
 
 				// don't run if another process is currently running it or more than once every 60 sec.
-				if ( $flag + $timeout > $local_time )
-					die( 'another cron process running or previous not older than 60 secs' );
+				#if ( $flag + $timeout > $local_time )
+				#	die( 'another cron process running or previous not older than 60 secs' );
 
 				// set a transient to allow locking down parallel requests
 				set_transient( 'doing_cron', $local_time );
