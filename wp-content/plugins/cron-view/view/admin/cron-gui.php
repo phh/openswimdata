@@ -43,7 +43,7 @@
 							<td><?php if ( count( $event[ 'args' ] ) ) { ?>
 								<ul>
 									<?php foreach( $event[ 'args' ] as $key => $value ) { ?>
-										<strong>[<?php echo $key; ?>]:</strong> <?php echo $value; ?>
+										<strong>[<?php echo $key; ?>]:</strong> <?php if( is_object( $value ) ) echo "Object"; else echo $value; ?>
 									<?php } ?>
 								</ul>
 							<?php } ?></td>
